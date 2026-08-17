@@ -18,7 +18,5 @@ scanf("%f", &valor_compra);
 
 
 
-
-
 return 0;
 }
