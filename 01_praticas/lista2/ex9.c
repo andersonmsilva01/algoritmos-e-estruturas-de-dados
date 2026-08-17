@@ -16,6 +16,8 @@ float valor_compra;
 printf("quanto vc comprou: ");
 scanf("%f", &valor_compra);
 
+printf("dasdsa");
+
 
 
 return 0;
