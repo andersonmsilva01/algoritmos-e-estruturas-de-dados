@@ -1,5 +1,10 @@
 # Regras para o assistente (AGENTS.md)
 
+## Respostas em C
+
+1. Não gerar respostas com código em C no chat do opencode, a menos que o usuário peça explicitamente.
+   - Exceção: tarefas de compilação/commit de arquivos `.c` de práticas (regras abaixo continuam valendo).
+
 ## Compilação de arquivos .c (01_praticas)
 
 Toda vez que o usuário rodar o compilador C (`gcc`) em um arquivo de práticas:
