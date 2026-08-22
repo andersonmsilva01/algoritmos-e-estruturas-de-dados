@@ -1,0 +1,20 @@
+Regras do switch
+
+
+1. O switch compara a variável com valores exatos e constantes nunca com condições ou intervalos.
+
+2. As aspas simples '...' criam um caractere (char), não uma expressão 
+
+3. Default: vazio é erro de sintaxe — o compilador exige pelo menos uma instrução (um break;). Mas se sua cadeia de condições cobrir todos os casos, nem precisa de default.
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+Regra para gravar: 
+
+intervalos ("entre X e Y") → use if / else if / else. 
+
+Valores exatos e discretos (menu 1, 2, 3) → switch é adequado. Aqui a ferramenta certa é a cadeia de ifs.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
