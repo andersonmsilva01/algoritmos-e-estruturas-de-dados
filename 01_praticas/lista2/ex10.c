@@ -25,11 +25,11 @@ int main(void){
 
 
   else if  (imc <=29.9){
-      printf("o seu imc é: %.2f e vc está com obesidade\n", imc);
+      printf("o seu imc é: %.2f e vc está com sobrepeso\n", imc);
     }
 
   else  {
-      printf("o seu imc é: %.2f e vc está com sobrepeso\n", imc);
+      printf("o seu imc é: %.2f e vc está com obesidade \n", imc);
     }
 
 return 0;
