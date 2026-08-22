@@ -18,3 +18,7 @@ Toda vez que o usuário rodar o compilador C (`gcc`) em um arquivo de práticas:
 
 1. Sempre que um novo executável for gerado (arquivo binário sem extensão, `.dSYM`, etc.), adicioná-lo ao `.gitignore` imediatamente.
 2. Nunca commitar executáveis ou binários compilados no repositório.
+
+## Commits
+
+1. Nunca incluir assinatura de IA nos commits (ex: `Co-Authored-By`, `Generated with`, etc.).
