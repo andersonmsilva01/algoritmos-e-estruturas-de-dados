@@ -19,13 +19,16 @@ Aqui você ensina o programa a **tomar decisões**: "se isso, faça aquilo; sen�
 Imagine que você está atravessando uma rua:
 - **SE** o semáforo está verde → atravesse
 - **SENÃO SE** está amarelo → cuidado
-- **SENÃO** (está vermelho) → pare
+- **SENÃO** está vermelho
+ → pare
 
 Em código C, é exatamente essa estrutura: `if` → `else if` → `else`. Você pode ter quantos `else if` quiser, mas só um `if` no começo e (opcionalmente) um `else` no fim.
 
 ### Explicação técnica
 
-`if` é uma **selection statement**. Ele avalia uma expressão entre parênteses: se o resultado é **diferente de zero**, executa o bloco; se é zero, pula para o `else` (se houver). Em C, não existe tipo booleano "puro" antes de C99 — qualquer valor não-zero é verdadeiro.
+`if` é uma **selection statement**. Ele avalia uma expressão entre parênteses: se o resultado é **diferente de zero**, executa o bloco; se é zero, pula para o `else` (se houver). 
+
+Em C, não existe tipo booleano "puro" antes de C99 — qualquer valor não-zero é verdadeiro.
 
 As chaves `{ ... }` agrupam várias instruções em um único bloco. Se houver apenas uma instrução, as chaves são opcionais — mas é **boa prática** sempre usar para evitar bugs.
 
@@ -70,13 +73,10 @@ int main(void) {
 
 ## 2. Operadores relacionais
 
-### Explicação simples
+###
+Produzem resultado do tipo `int`: `1` se a comparação é verdadeira, `0` se é falsa. 
 
-São os operadores de "comparação" — eles olham para dois valores e respondem **sim** (verdadeiro, valor 1) ou **não** (falso, valor 0).
-
-### Explicação técnica
-
-Operadores relacionais produzem resultado do tipo `int`: `1` se a comparação é verdadeira, `0` se é falsa. Eles têm precedência menor que aritmética, mas maior que lógicos.
+Eles têm precedência menor que aritmética, mas maior que lógicos.
 
 ### Tabela
 
@@ -89,9 +89,6 @@ Operadores relacionais produzem resultado do tipo `int`: `1` se a comparação �
 | `<=` | menor ou igual | `a <= b` | `0` |
 | `>=` | maior ou igual | `a >= b` | `1` |
 
-> **Armadilha clássica:** `if (a = 5)` em vez de `if (a == 5)`. O primeiro **atribui** 5 a `a` (sempre verdadeiro!), o segundo **compara**. Compiladores modernos avisam, mas fique atento.
-
----
 
 ## 3. Operadores lógicos
 

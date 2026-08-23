@@ -1,7 +1,7 @@
 Regras do switch
 
 
-1. O switch compara a variável com valores exatos e constantes nunca com condições ou intervalos.
+1. O switch compara a variável com valores exatos e constantes nunca com condições ou intervalos. int e char
 
 2. As aspas simples '...' criam um caractere (char), não uma expressão 
 
