@@ -1,20 +1,47 @@
-Regras do switch
+REGRAS DO SWITCH
 
+1. O switch compara a variável com valores exatos e constantes nunca com condições ou intervalos. 
 
-1. O switch compara a variável com valores exatos e constantes nunca com condições ou intervalos. int e char
+2. Só funciona com int e char.
 
-2. As aspas simples '...' criam um caractere (char), não uma expressão 
-
-3. Default: vazio é erro de sintaxe — o compilador exige pelo menos uma instrução (um break;). Mas se sua cadeia de condições cobrir todos os casos, nem precisa de default.
-
----------------------------------------------------------------------
----------------------------------------------------------------------
+3. Default vazio é erro de sintaxe, o compilador exige pelo menos uma instrução (um break;), se a cadeia de condições cobrir todos os casos, nem precisa de default.
 
 Regra para gravar: 
 
-intervalos ("entre X e Y") → use if / else if / else. 
++ Intervalos ("entre X e Y") → use if / else if / else. 
 
-Valores exatos e discretos (menu 1, 2, 3) → switch é adequado. Aqui a ferramenta certa é a cadeia de ifs.
++ Valores exatos e discretos (menu 1, 2, 3) → switch é adequado. Aqui a ferramenta certa é a cadeia de ifs.
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+REGRAS DO CHAR
 
+1. Um char ocupa 1 byte e guarda um único caractere: 'a', 'x', '7'.
+
+2. Uma letra: só	char + aspas simples
+
+3. Uma palavra:	ponteiro para char (const char *) + aspas duplas
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
