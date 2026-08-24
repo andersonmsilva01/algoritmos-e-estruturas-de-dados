@@ -9,10 +9,11 @@
 
 Toda vez que o usuário rodar o compilador C (`gcc`) em um arquivo de práticas:
 
-1. Comitar o arquivo `.c` com uma mensagem contendo o nome do arquivo e o número da tentativa de resolução.
+1. **Comitar ANTES de compilar novamente** — isso garante que o número da tentativa no commit corresponda à realidade.
+2. Comitar o arquivo `.c` com uma mensagem contendo o nome do arquivo e o número da tentativa de resolução.
    - Exemplo: tentativa 3 do `lista2/ex7.c` → `feat(lista2/ex7.c): tentativa 3`
-2. Manter o histórico de tentativas: verificar `git log` para descobrir qual é o número da próxima tentativa antes de commitar.
-3. Na mensagem do commit, usar sempre o caminho relativo à pasta `01_praticas/` (ex: `lista2/ex9.c`), nunca o caminho completo (`01_praticas/lista2/ex9.c`).
+3. Manter o histórico de tentativas: verificar `git log` para descobrir qual é o número da próxima tentativa antes de commitar.
+4. Na mensagem do commit, usar sempre o caminho relativo à pasta `01_praticas/` (ex: `lista2/ex9.c`), nunca o caminho completo (`01_praticas/lista2/ex9.c`).
 
 ## Executáveis
 
