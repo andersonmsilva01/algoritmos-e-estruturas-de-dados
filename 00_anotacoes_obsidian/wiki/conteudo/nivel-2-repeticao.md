@@ -14,10 +14,7 @@ Aqui você ensina o programa a **repetir tarefas**. Em vez de copiar e colar a m
 
 ## 1. `for` — quando você sabe quantas vezes vai repetir
 
-### Explicação simples
-
-Pense em **subir escadas contando**: "1, 2, 3, ... 10". Você sabe que começa no degrau 1, vai até o 10 e sobe 1 de cada vez. O `for` é isso: você define onde **começa**, onde **para** e como **avança**.
-
+###
 ### Explicação técnica
 
 `for` é a forma mais compacta de laço quando você tem três coisas claras:
@@ -25,20 +22,20 @@ Pense em **subir escadas contando**: "1, 2, 3, ... 10". Você sabe que começa n
 2. **Condição** — testada antes de cada iteração; se falsa, sai do laço
 3. **Atualização** — executada ao final de cada iteração
 
+### Sintaxe
+
+```c
+for (inicialização; condição; atualização) {
+    // corpo do laço
+}
+```
+
 Equivale a:
 ```c
 inicialização;
 while (condição) {
     // corpo
     atualização;
-}
-```
-
-### Sintaxe
-
-```c
-for (inicialização; condição; atualização) {
-    // corpo do laço
 }
 ```
 
