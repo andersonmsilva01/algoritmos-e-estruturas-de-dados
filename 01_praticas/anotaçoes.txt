@@ -29,8 +29,7 @@ ESTRUTURAS DE REPETIÇÃO
 
 1. Use for quando o número de iterações é conhecido.
 
-2. Use while quando a condição de parada depende de uma entrada
-ou evento.
+2. Use while quando a condição de parada depende de uma entrada ou evento.
 
 3. Use do-while quando o bloco deve executar ao menos uma vez
 
