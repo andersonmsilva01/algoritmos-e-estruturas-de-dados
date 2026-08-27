@@ -33,6 +33,9 @@ ESTRUTURAS DE REPETIÇÃO
 
 3. Use do-while quando o bloco deve executar ao menos uma vez
 
+- nao da para declarar var dentro da condicao do while igual no for
+- mas da ter multiplas condicoes logicas, com var já declaradas
+
 
 
 ---------------------------------------------------------------------
