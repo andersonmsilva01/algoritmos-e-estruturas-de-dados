@@ -194,7 +194,10 @@ for (int i = 0; i < 10; i++) {
 
 ## 5. Padrões fundamentais de laço
 
-Estes são os "moldes" que aparecem em **quase todo** exercício com laços. Todos seguem a mesma ideia: uma variável **guardada fora do laço** vai sendo atualizada **a cada volta**. Entenda a lógica de cada um — não decore o código.
+Estes são os "moldes" que aparecem em **quase todo** exercício com laços. 
+Todos seguem a mesma ideia: 
+ - uma variável **guardada fora do laço** 
+ - vai sendo atualizada **a cada volta**. 
 
 ---
 
@@ -202,15 +205,21 @@ Estes são os "moldes" que aparecem em **quase todo** exercício com laços. Tod
 
 #### Explicação simples
 
-Imagine que você está no **caixa do supermercado**. A cada produto que passa, você **soma o preço dele ao total** que já tinha. O "total" começa em zero e vai **engordando** a cada item. No fim, ele guarda a conta inteira.
+A cada produto que passa, você **soma o preço dele ao total** que já tinha.
 
-O acumulador é isso: uma variável (o "total") que **acumula** um pouquinho a cada volta do laço.
+- O total começa em zero e vai **engordando** a cada item. No fim, ele guarda a conta inteira.
+
+- O acumulador é isso: uma variável (o "total") que **acumula** um pouquinho a cada volta do laço.
 
 #### Explicação técnica
 
-Você declara a variável acumuladora **antes** do laço, com um **valor neutro**, e dentro do laço aplica a operação sobre ela mesma (`soma += x` é o mesmo que `soma = soma + x`).
+- Você declara a variável acumuladora **antes** do laço, com um **valor neutro**
+- Dentro do laço aplica a operação sobre ela mesma 
+- (`soma += x` é o mesmo que `soma = soma + x`).
 
-O valor inicial depende da operação: para **somar** começa em **0** (somar 0 não muda nada); para **multiplicar** começa em **1** (multiplicar por 1 não muda nada). Se você começar o produto em 0, o resultado é sempre 0 — erro clássico.
+**O valor inicial depende da operação:**
+ - **somar** começa em **0** (somar 0 não muda nada) 
+ - **multiplicar** começa em **1** (multiplicar por 1 não muda nada), se começar em 0, o resultado é sempre 0 — erro clássico.
 
 ```c
 // Soma de N números lidos
