@@ -8,7 +8,6 @@ Leia um número e imprima sua tabuada do 1 ao 10.
 int main(void){
 
   int num;
-  int tab;
   
   printf("digite um numero: \n");
   scanf("%d", &num);
