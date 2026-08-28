@@ -1,3 +1,16 @@
+Operador |      Nome | 
+|----------------
+| `+` |       soma    
+| `-` |     subtração 
+| `*` |   multiplicação 
+| `/` | divisão (inteira!)
+| `/` | divisão (real)
+| `%` |   resto (módulo) 
+| `++` |  incremento  
+| `--` |  decremento  
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
 REGRAS DO SWITCH
 
 1. O switch compara a variável com valores exatos e constantes nunca com condições ou intervalos. 
