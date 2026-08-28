@@ -7,6 +7,15 @@ Calcule X^N sem usar pow(), apenas com laço.
 
 int main(){
 
+  float num;
+
+do {
+
+  printf("digite um numero: \n");
+  scanf("%f", &num);
+
+  
+}
 
     return 0;
 }
