@@ -53,13 +53,67 @@ ESTRUTURAS DE REPETIÇÃO
 
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------
+FUNCOES
+
+Combinações possíveis de retorno e parâmetros em funções C:
+
+Retorno = o que a função devolve (ou void se não devolve nada) 
+
+Parâmetros = o que a função recebe de entrada
+
+As 4 combinações:
+
+1. void sem parâmetros → não recebe nada, não retorna nada
+void saudacao(void) { printf("Olá\n"); }
+
+2. void com parâmetros → recebe dados, mas não retorna nada
+void exibirTabuada(int n) { /* imprime a tabuada */ }
+
+3. Tipo específico com parâmetros → recebe dados e retorna um valor
+int somar(int a, int b) { return a + b; }
+
+4. Tipo específico sem parâmetros → não recebe nada, mas retorna um valor
+int idadeAtual(void) { return 20; }
 
 
 
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------
+LOOPS
 
+maior e menor numero
+#include <stdio.h>
 
+int main() {
+    int n, x, menor, maior;
+
+    printf("Digite quantos numeros serao comparados:\n");
+    scanf("%d", &n);
+
+    printf("Digite o primeiro numero:\n");
+    scanf("%d", &x);
+
+    menor = x;
+    maior = x;
+
+    for (int i = 1; i < n; i++) {
+        printf("Digite o proximo numero:\n");
+        scanf("%d", &x);
+
+        if (x < menor) {
+            menor = x;
+        }
+
+        if (x > maior) {
+            maior = x;
+        }
+    }
+
+    printf("Menor de todos: %d\n", menor);
+    printf("Maior de todos: %d\n", maior);
+
+    return 0;
+}
 
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------
