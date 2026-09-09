@@ -5,17 +5,33 @@ Verifique se um número lido é primo usando um laço.
 
 #include <stdio.h>
 
-int main(){
+int main(void) {
+    int n;
+    int primo = 1;
 
-  int num;
+    printf("Digite um numero: ");
+    scanf("%d", &n);
 
-  printf("digite um numero: \n");
-  scanf("%d", &num);
+    if (n < 2) {
+        primo = 0;
+    } else if (n == 2) {
+        primo = 1;
+    } else if (n % 2 == 0) {
+        primo = 0;
+    } else {
+        for (int divisor = 3; divisor <= n / divisor; divisor += 2) {
+            if (n % divisor == 0) {
+                primo = 0;
+                break;
+            }
+        }
+    }
 
-  while(num % 2 == 0){
-    printf("não é numero primo")
-  }
-
+    if (primo) {
+        printf("%d e primo.\n", n);
+    } else {
+        printf("%d nao e primo.\n", n);
+    }
 
     return 0;
 }
