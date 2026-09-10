@@ -16,10 +16,11 @@ void aumentarUm(int n){
 int main(void) {
     
     int x;
+    
     printf("\ndigite um valor: ");
     scanf("%d", &x);
+    
     printf("\nantes da funcao: %d\n", x);
-
     aumentarUm(x);
 
     return 0;
