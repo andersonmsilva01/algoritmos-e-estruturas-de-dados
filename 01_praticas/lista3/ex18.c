@@ -1,27 +1,31 @@
 /*
 18. Sequência com critério de parada
-Leia números em loop até o usuário digitar -1 e exiba o
-maior valor digitado.
+Leia números em loop até o usuário digitar -1 e exiba o maior valor digitado.
 */
 
 #include <stdio.h>
 
-int main(){
+int main() {
+    int valor = 0;
+    int maior;
+    int primeiro = 1;
 
-    int valor;
-    while(valor != -1){
-        printf("digite um numero: ");
+    while (valor != -1) {
+        printf("Digite um numero: ");
         scanf("%d", &valor);
 
-        if(valor == -1){
-            printf("encerrado");
+        if (valor == -1) {
+            printf("Encerrado\n");
         }
-        else if(valor>valor){
-            printf("esse é o maior valor digitado: %d",valor);
+        else if (primeiro == 1 || valor > maior) {
+            maior = valor;
+            primeiro = 0;
         }
-
     }
 
+    if (primeiro == 0) {
+        printf("O maior valor digitado foi: %d\n", maior);
+    }
 
     return 0;
 }
