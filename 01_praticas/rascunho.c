@@ -1,18 +1,16 @@
 #include <stdio.h>
 
-int main() {
-  
-int n = 1234;
-int soma = 0, qtd = 0;
-
-while (n > 0) {
-    int digito = n % 10;   
-    soma += digito;              
-    qtd++;                       
-    n = n / 10;                  
+void dobrar(int n) {        // recebe CÓPIA
+    n = n * 2;              // só altera a cópia local
+    printf("Dentro: %d\n", n);
 }
-printf("Qtd de dígitos: %d, soma: %d\n", qtd, soma);   
 
+int main(void) {
+    int x;
+    printf("passe um valor: ");
+    scanf("%d", &x);
+    dobrar(&x);              // passa cópia de x
+    printf("Fora: %d\n", x); // ainda é 5
     return 0;
 }
 /* 
