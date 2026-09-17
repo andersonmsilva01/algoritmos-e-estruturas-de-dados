@@ -11,7 +11,7 @@ Dica: Use void como tipo de retorno e não coloque nada entre os parênteses da 
 
 #include <stdio.h>
 void saudacao(){
-    printf("olá mundo");
+    printf("olá mundo\n");
 }
 
 
