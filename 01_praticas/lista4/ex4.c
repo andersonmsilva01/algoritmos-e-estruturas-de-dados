@@ -11,12 +11,18 @@ Dica: for de i=1 até i<=10. O resultado é sempre 5 * i.
 #include <stdio.h>
 
 void tabuadaCinco(){
-    x =* 
+    
+    int result, num = 5;
+    
+    for(int i = 1; i <=10; i++){
+    result = num * i;
+    printf ("%d x %d = %d\n", num, i, result);
+    }
 }
 
 int main(void){
 
-    for(int i = 1; i <=10; i*5);
+    tabuadaCinco();
 
     return 0;
 }
