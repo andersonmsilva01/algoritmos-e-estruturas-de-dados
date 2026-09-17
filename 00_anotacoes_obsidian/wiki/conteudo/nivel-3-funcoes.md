@@ -220,9 +220,11 @@ int main(void) {
 
 ### Explicação simples
 
-Recursão é quando uma função **chama ela mesma** com um problema menor, até chegar em um caso simples que ela sabe responder direto. É como uma boneca russa: cada uma contém uma menor, até a menor de todas.
+Recursão é quando uma função **chama ela mesma** com um problema menor, até chegar em um caso simples que ela sabe responder direto. 
 
-**Toda recursão precisa de um caso base** (a parada), senão chama para sempre e estoura a memória.
+- É como uma boneca russa: cada uma contém uma menor, até a menor de todas.
+
+- **Toda recursão precisa de um caso base** (a parada), senão chama para sempre e estoura a memória.
 
 ### Código de exemplo — Fatorial
 
