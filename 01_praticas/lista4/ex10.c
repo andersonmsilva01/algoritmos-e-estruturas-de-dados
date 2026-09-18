@@ -11,8 +11,21 @@ Dica: Use divisão com ponto flutuante: 9.0 / 5.0 para evitar divisão inteira.
 
 #include <stdio.h>
 
+float celsiusParaFahr(float c){
+    float f;
+    return f = (c * 9.0/5.0) + 32;  
+}
+
+
 int main(){
 
+    float temp;
+    scanf("%f",&temp);
+
+    celsiusParaFahr(temp);
+    float conv = celsiusParaFahr(temp);
+
+    printf("%2.fº Celsius convertido para %2.fº Fahrenheit.\n",temp, conv);
 
     return 0;
 }
