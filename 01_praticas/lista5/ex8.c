@@ -8,7 +8,7 @@ Leia um vetor com 15 elementos e substitua todos os números negativos por zero.
 
 #include <stdio.h>
 
-int main(){
+int main(void){
     int vetor[15];
 
     for(int i = 0; i < 15; i++){
