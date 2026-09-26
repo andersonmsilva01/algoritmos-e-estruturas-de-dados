@@ -9,7 +9,7 @@ elementos do vetor.
 
 #include <stdio.h>
 
-int main(){
+int main(void){
     int vetor[10];
     int soma = 0;
 
