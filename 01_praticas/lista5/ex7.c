@@ -9,16 +9,8 @@ elementos do vetor.
 
 #include <stdio.h>
 
-int main(void){
-    int vetor[10];
-    int soma = 0;
+int main(){
 
-    for(int i = 0; i < 10; i++){
-        scanf("%d", &vetor[i]);
-        soma += vetor[i];
-    }
-
-    printf("Soma: %d\n", soma);
 
     return 0;
 }
