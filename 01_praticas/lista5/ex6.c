@@ -8,7 +8,7 @@ Leia um vetor com 20 posições e mostre os elementos na ordem inversa.
 
 #include <stdio.h>
 
-int main(){
+int main(void){
     int vetor[20];
 
     for(int i = 0; i < 20; i++){
