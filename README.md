@@ -3,9 +3,6 @@
 </p>
 
 
-
-
-
 Repositório de estudo progressivo das disciplinas algoritmos e estruturas de dados I II III na linguagem C do IFMG. O conteúdo reúne materiais das aulas, explicações organizadas por nível, exercícios práticos feitos a mão e documentação de referência.
 
 ## Objetivos
