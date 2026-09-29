@@ -2,7 +2,7 @@
 
 ## Respostas em C
 
-1. Não gerar respostas com código em C no chat do opencode, a menos que o usuário peça explicitamente.
+1. Não gerar respostas com código em C no chat do opencode,codex etc, a menos que o usuário peça explicitamente.
    - Exceção: tarefas de compilação/commit de arquivos `.c` de práticas (regras abaixo continuam valendo).
 
 ## Criação de pastas de exercícios
