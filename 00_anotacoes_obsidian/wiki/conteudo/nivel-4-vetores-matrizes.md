@@ -3,7 +3,7 @@ titulo: Nível 4 — Vetores, Strings e Matrizes
 categoria: conceito
 tags: [vetores, arrays, matrizes, strings, avancado]
 fontes: [Declarations - cppreference.com.md, Null-terminated byte strings.md, lista5_extra.jpeg]
-atualizado: 2026-06-28
+atualizado: 2026-09-27
 ---
 
 # Nível 4 — Vetores, Strings e Matrizes
@@ -22,9 +22,11 @@ Se você tem `int v[10]`, as divisórias são `v[0], v[1], v[2], ..., v[9]`. Nã
 
 ### Explicação técnica
 
-Um array em C é uma sequência **contígua na memória** de elementos do mesmo tipo. O nome do array, em quase todos os contextos, **decai para um ponteiro** para o primeiro elemento. Por isso `v[i]` é equivalente a `*(v + i)`.
+Um array em C é uma sequência **contígua na memória** de elementos do mesmo tipo. 
 
-C **não verifica os limites** do array em tempo de execução. Acessar `v[15]` em um array de 10 posições é **undefined behavior**: pode crashar, pode corromper outra variável, pode aparentemente funcionar.
+- O nome do array, em geral, **decai para um ponteiro** para o primeiro elemento. Por isso `v[i]` é equivalente a `*(v + i)`.
+
+- C não verifica os limites do array em tempo de execução. Acessar `v[15]` em um array `v[10]` é **undefined behavior**: pode crashar, corromper outra variável, aparentemente. funcionar.
 
 ### Declaração
 
@@ -132,34 +134,245 @@ for (int i = 0; i < n && !tem_repetido; i++) {
 
 ### Explicação simples
 
-O **Bubble Sort** ("ordenação por bolhas") compara pares de elementos vizinhos e os troca se estiverem fora de ordem. A cada "passada", o maior elemento "borbulha" para o fim. Repete até estar tudo ordenado.
+O **Bubble Sort** (ordenação por bolha) percorre o vetor comparando elementos que estão lado a lado:
 
-Não é o algoritmo mais rápido (O(n²)), mas é o mais fácil de entender e implementar.
+1. compara o elemento atual com o próximo;
+2. se eles estiverem na ordem errada, troca os dois de posição;
+3. continua fazendo isso até chegar ao final da parte ainda não ordenada.
 
-### Código de exemplo
+Considere o vetor `5 2 8 1`. Durante a primeira passada, acontece o seguinte:
+
+```text
+5 2 8 1  -> troca 5 e 2 -> 2 5 8 1
+2 5 8 1  -> 5 e 8 já estão na ordem correta
+2 5 8 1  -> troca 8 e 1 -> 2 5 1 8
+```
+
+Ao terminar essa passada, o maior valor (`8`) chegou à última posição. Por isso, na próxima passada não é preciso comparar essa posição novamente. A cada nova passada, mais um elemento fica definitivamente em seu lugar no final do vetor.
+
+### Explicação técnica
+
+O Bubble Sort usa dois laços:
+
+- o laço externo controla até qual posição o vetor ainda precisa ser verificado;
+- o laço interno compara `vetor[i]` com seu vizinho `vetor[i + 1]`;
+- depois de cada passada, o maior elemento da parte não ordenada fica no final da parte percorrida;
+- se uma passada terminar sem trocas, o vetor já está ordenado e o algoritmo pode parar antes.
+
+O algoritmo ordena o vetor **no próprio vetor**, sem precisar criar outro. Sua complexidade de espaço é **O(1)**. A complexidade de tempo é **O(n²)** nos casos médio e pior. Com a verificação de trocas, o melhor caso — quando o vetor já está ordenado — é **O(n)**.
+
+Ele também é **estável**: como a troca só ocorre quando o elemento da esquerda é maior (`>`), valores iguais mantêm sua ordem relativa. Apesar de ser útil para aprender ordenação e laços aninhados, normalmente não é uma boa escolha para vetores grandes.
+
+### Exemplos em três níveis
+
+Comece pelo exemplo fácil. Passe para o intermediário quando os dois laços estiverem claros. O exemplo difícil mostra uma otimização e pode ser estudado por último.
+
+#### 1. Fácil — tudo dentro do `main`
+
+Este exemplo contém apenas o essencial: comparar vizinhos e trocar os valores que estiverem fora de ordem.
 
 ```c
 #include <stdio.h>
 
-int main(void) {
-    int v[] = {5, 2, 8, 1, 9, 3};
-    int n = 6;
+#define TAMANHO 5
 
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - 1 - i; j++) {
-            if (v[j] > v[j + 1]) {
-                int temp = v[j];
-                v[j] = v[j + 1];
-                v[j + 1] = temp;
+int main(void) {
+    int vetor[TAMANHO] = {5, 2, 4, 1, 3};
+
+    // O Bubble Sort precisa fazer, no máximo,
+    // TAMANHO - 1 passadas pelo vetor.
+    for (int passada = 0; passada < TAMANHO - 1; passada++) {
+
+        // Compara cada elemento com o elemento da posição seguinte.
+        // O "- 1" impede o acesso a uma posição fora do vetor.
+        // O "- passada" ignora o final, que já está ordenado.
+        for (int i = 0; i < TAMANHO - 1 - passada; i++) {
+
+            // Se o valor da esquerda for maior, eles estão
+            // na ordem errada e precisam trocar de posição.
+            if (vetor[i] > vetor[i + 1]) {
+                int temporario = vetor[i];
+                vetor[i] = vetor[i + 1];
+                vetor[i + 1] = temporario;
             }
         }
     }
 
-    for (int i = 0; i < n; i++) printf("%d ", v[i]);
-    printf("\n");   // 1 2 3 5 8 9
+    printf("Vetor ordenado: ");
+
+    for (int i = 0; i < TAMANHO; i++) {
+        printf("%d ", vetor[i]);
+    }
+
+    printf("\n");
     return 0;
 }
 ```
+
+Saída:
+
+```text
+Vetor ordenado: 1 2 3 4 5
+```
+
+As variáveis mais importantes são:
+
+- `passada`: indica quantas vezes o vetor já foi percorrido;
+- `i`: representa a posição do elemento que está sendo comparado;
+- `i + 1`: representa a posição do vizinho da direita;
+- `temporario`: guarda um valor durante a troca para que ele não seja perdido.
+
+#### 2. Intermediário — função e parada antecipada
+
+Agora a ordenação fica em uma função separada. A variável `houve_troca` permite encerrar o algoritmo quando o vetor já estiver ordenado.
+
+```c
+#include <stdio.h>
+
+// Mostra todos os elementos do vetor.
+void imprimir_vetor(const int vetor[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", vetor[i]);
+    }
+
+    printf("\n");
+}
+
+// Ordena o vetor recebido em ordem crescente.
+void bubble_sort(int vetor[], int tamanho) {
+
+    // "fim" é a última posição que ainda precisa ser verificada.
+    // Depois de cada passada, o maior valor da parte desordenada
+    // fica em "fim". Por isso "fim" diminui em seguida.
+    for (int fim = tamanho - 1; fim > 0; fim--) {
+
+        // Deve começar com zero em cada nova passada.
+        int houve_troca = 0;
+
+        for (int i = 0; i < fim; i++) {
+
+            // Compara o elemento atual com o vizinho da direita.
+            if (vetor[i] > vetor[i + 1]) {
+
+                // Faz a troca sem perder nenhum dos dois valores.
+                int temporario = vetor[i];
+                vetor[i] = vetor[i + 1];
+                vetor[i + 1] = temporario;
+
+                // Registra que o vetor ainda estava desordenado.
+                houve_troca = 1;
+            }
+        }
+
+        // Se a passada inteira não realizou nenhuma troca,
+        // todos os elementos já estão na ordem correta.
+        if (!houve_troca) {
+            break;
+        }
+    }
+}
+
+int main(void) {
+    int numeros[] = {5, 2, 8, 1, 9, 3};
+
+    // Tamanho total do vetor dividido pelo tamanho de um elemento.
+    int tamanho = sizeof numeros / sizeof numeros[0];
+
+    printf("Antes:  ");
+    imprimir_vetor(numeros, tamanho);
+
+    // A função altera diretamente o vetor "numeros".
+    bubble_sort(numeros, tamanho);
+
+    printf("Depois: ");
+    imprimir_vetor(numeros, tamanho);
+
+    return 0;
+}
+```
+
+Saída:
+
+```text
+Antes:  5 2 8 1 9 3
+Depois: 1 2 3 5 8 9
+```
+
+> Em `sizeof numeros / sizeof numeros[0]`, o primeiro `sizeof` obtém o tamanho total do vetor em bytes e o segundo obtém o tamanho de um elemento. A divisão resulta na quantidade de elementos. Esse cálculo deve ser feito no mesmo escopo em que o vetor foi declarado; dentro de `bubble_sort`, o tamanho precisa ser recebido por parâmetro.
+
+#### 3. Difícil — limite definido pela última troca
+
+Na versão intermediária, o limite diminui uma posição depois de cada passada. Nesta versão, o algoritmo registra a **última posição em que ocorreu uma troca**. Tudo o que estiver depois dela já está ordenado, então esse trecho pode ser ignorado na próxima passada.
+
+```c
+#include <stdio.h>
+
+void imprimir_vetor(const int vetor[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", vetor[i]);
+    }
+
+    printf("\n");
+}
+
+void bubble_sort_otimizado(int vetor[], int tamanho) {
+
+    // No começo, a parte que precisa ser verificada vai
+    // da posição 0 até a última posição do vetor.
+    int limite = tamanho - 1;
+
+    // Continua enquanto existir mais de um elemento
+    // na parte que ainda pode estar desordenada.
+    while (limite > 0) {
+
+        // Se nenhuma troca ocorrer, esta variável continuará
+        // valendo zero e o laço terminará.
+        int ultima_troca = 0;
+
+        for (int i = 0; i < limite; i++) {
+            if (vetor[i] > vetor[i + 1]) {
+                int temporario = vetor[i];
+                vetor[i] = vetor[i + 1];
+                vetor[i + 1] = temporario;
+
+                // Guarda o índice da comparação mais à direita
+                // que precisou realizar uma troca.
+                ultima_troca = i;
+            }
+        }
+
+        // Na próxima passada, somente a região que termina
+        // na posição da última troca precisa ser verificada.
+        limite = ultima_troca;
+    }
+}
+
+int main(void) {
+    int numeros[] = {5, 2, 8, 1, 9, 3};
+    int tamanho = sizeof numeros / sizeof numeros[0];
+
+    printf("Antes:  ");
+    imprimir_vetor(numeros, tamanho);
+
+    bubble_sort_otimizado(numeros, tamanho);
+
+    printf("Depois: ");
+    imprimir_vetor(numeros, tamanho);
+
+    return 0;
+}
+```
+
+Saída:
+
+```text
+Antes:  5 2 8 1 9 3
+Depois: 1 2 3 5 8 9
+```
+
+Essa otimização pode evitar comparações desnecessárias quando uma parte grande do final do vetor já está ordenada. Entretanto, no pior caso, a complexidade de tempo continua sendo **O(n²)**.
+
+> Para aprender o algoritmo, memorize primeiro a lógica do exemplo fácil: **comparar vizinhos, trocar quando necessário e repetir as passadas**. As outras versões apenas organizam ou otimizam essa mesma lógica.
 
 ---
 
@@ -181,7 +394,7 @@ C não tem tipo `string` nativo. Strings são arrays de `char` terminados em `'\
 
 int main(void) {
     // 3 formas equivalentes
-    char s1[6] = "Olá";              // espaço para "O", "l", "á", "\0" (+padding)
+    char s1[6] = "Olá";              //
     char s2[] = "Mundo";              // tamanho calculado automaticamente
     char s3[] = {'O','i','\0'};       // forma explícita
 
@@ -373,6 +586,8 @@ for (int i = 0; i < n; i++)
 printf("Maior é %d em [%d][%d]\n", max, li, lj);
 ```
 
+
+
 ---
 
 ## Exercícios resolvidos
@@ -495,57 +710,6 @@ int main(void) {
 ```
 
 > Os outros dois exercícios extras (menor/maior em vetor de 20; maior em vetor `A` de 30) são variações diretas do padrão **máximo/mínimo** mostrado na seção 2.
-
----
-
-## Vetores e funções — passando arrays
-
-Quando você passa um vetor para uma função, **o que viaja é o endereço do primeiro elemento**, não uma cópia. Por isso alterações feitas na função afetam o vetor original — diferente de variáveis simples.
-
-```c
-#include <stdio.h>
-
-// Estas duas assinaturas são EQUIVALENTES:
-void imprimir(int v[], int n);
-void imprimir(int *v, int n);
-
-void imprimir(int v[], int n) {
-    for (int i = 0; i < n; i++)
-        printf("%d ", v[i]);
-    printf("\n");
-}
-
-void dobrarVetor(int v[], int n) {
-    for (int i = 0; i < n; i++)
-        v[i] *= 2;            // altera o original!
-}
-
-int main(void) {
-    int v[5] = {1, 2, 3, 4, 5};
-    imprimir(v, 5);           // 1 2 3 4 5
-    dobrarVetor(v, 5);
-    imprimir(v, 5);           // 2 4 6 8 10
-    return 0;
-}
-```
-
-> Por isso passar arrays é sempre eficiente — sem cópia, mesmo arrays grandes.
-
----
-
-## Armadilhas comuns
-
-| Armadilha | O que acontece | Como evitar |
-|-----------|---------------|-------------|
-| Acessar `v[N]` (fora) | UB silencioso ou crash | Limite sempre é `< N`, não `<= N` |
-| Esquecer `\0` em string manual | `printf("%s")` lê lixo | Use aspas duplas ou termine manualmente |
-| Comparar string com `==` | Compara endereços, não conteúdo | Use `strcmp` |
-| `scanf("%s", &nome)` | Errado: `%s` não usa `&` | `scanf("%s", nome)` |
-| `scanf("%s")` sem limite | Buffer overflow | Use `scanf("%49s", buf)` para `char buf[50]` |
-| `gets()` | UB clássico, removido | Use `fgets(buf, sizeof buf, stdin)` |
-| Dimensões trocadas em matriz | Lê coisa errada | `m[linha][coluna]` — `i` é linha |
-| Inicialização `{0}` esperando preencher tudo | Só zera mesmo | Para outros valores, faça loop |
-| Esquecer `=` extra em `int v[5] = {1,2,3,4,5}` | Erro de sintaxe | Sempre `=` antes de `{...}` |
 
 ---
 
