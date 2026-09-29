@@ -1,15 +1,19 @@
-# Índice da Wiki — Linguagem C
+# Índice do Projeto — Linguagem C
 
 > Fontes: páginas do **cppreference.com** (clippadas via Obsidian Web Clipper) + **ISO/IEC 9899:2011** (padrão oficial C11, 701 páginas).
-> Pasta de fontes: `raw/doc_c_oficial/`
+> Documentação da linguagem C: `03_material_extra/doc_c_oficial/`
+> Material da disciplina: `00_material_aula_ifmg/`
 
 ---
 
-## Visão Geral
+## Estrutura principal
 
-| Página | Descrição |
-|--------|-----------|
-| [[overview]] | Síntese geral e estado atual do conhecimento *(a criar)* |
+| Caminho | Conteúdo |
+|---|---|
+| `00_material_aula_ifmg/` | Aulas e atividades fornecidas pelo IFMG. |
+| `01_explicacao_da_ia/` | Explicações didáticas organizadas por nível. |
+| `02_praticas/` | Resoluções, tentativas, anotações e dúvidas. |
+| `03_material_extra/` | Documentação oficial e materiais auxiliares. |
 
 ---
 
@@ -107,7 +111,7 @@
 
 | Arquivo | Resumo |
 |---------|--------|
-| `ISO:IEC9899:2011.pdf` | **Padrão oficial C11 (ISO/IEC 9899:2011) — 701 páginas. Draft N1570, April 2011.** Documento normativo completo da linguagem C na revisão de 2011. Estrutura em 4 partes: (1) preliminares (cláusulas 1–4: escopo, referências, termos, conformidade); (2) ambientes (cláusula 5: modelo de tradução, execução, limites); (3) linguagem (cláusula 6: conceitos, conversões, elementos léxicos, expressões, declarações, statements, funções, preprocessador); (4) biblioteca (cláusula 7: todos os headers). Seguido de Anexos normativos (D, F, G, K, L) e informativos (A, B, C, E, J). |
+| `ISO_IEC9899_2011.pdf` | **Padrão oficial C11 (ISO/IEC 9899:2011) — 701 páginas. Draft N1570, April 2011.** Documento normativo completo da linguagem C na revisão de 2011. Estrutura em 4 partes: (1) preliminares (cláusulas 1–4: escopo, referências, termos, conformidade); (2) ambientes (cláusula 5: modelo de tradução, execução, limites); (3) linguagem (cláusula 6: conceitos, conversões, elementos léxicos, expressões, declarações, statements, funções, preprocessador); (4) biblioteca (cláusula 7: todos os headers). Seguido de Anexos normativos (D, F, G, K, L) e informativos (A, B, C, E, J). |
 
 **Estrutura do documento:**
 
@@ -180,21 +184,19 @@
 
 | Arquivo | Resumo |
 |---------|--------|
-| `ifmg/lista1.pdf` … `lista5_vetor_matriz.pdf` | As 5 primeiras listas de exercícios do IFMG (algoritmos, condicionais, repetição, funções, vetores/matrizes). Analisadas no [[analises/roteiro-estudo-listas-ifmg|roteiro]]. |
-| `ifmg/lista5_extra.jpeg` | Foto de slide com 3 exercícios extras de vetores (menor/maior em vetor de 20; maior + posição em Q de 20 positivos; maior em A de 30). Resolvidos em [[conteudo/nivel-4-vetores-matrizes]]. |
-| `ifmg/aula_struct.pdf` | Slides da aula de **structs/registros** (36 slides): definição, 3 formas de declarar, acesso por campo, struct aninhada, vetor de registros, structs e funções, exemplos completos (números complexos, cadastro). Base de [[conteudo/nivel-5-structs]]. |
-| `ifmg/lista6_struct.pdf` | **Lista 6** (structs): 15 exercícios nível básico + 3 nível médio (IFMG) + 9 do Prof. André Backes (UFU). Exercícios-alvo do Nível 5. |
-| `ifmg/aula_pilha_fila_lista.pdf` | Slides sobre **pilhas, filas e listas** com arranjos, fila circular, listas encadeadas, listas duplas e estruturas genéricas. Base de [[conteudo/nivel-6-pilhas-filas-listas]]. |
-| `ifmg/lista7_fila.pdf` e `ifmg/lista8_pilha.pdf` | Exercícios progressivos de filas e pilhas: interface, cópia, inversão, aplicações clássicas e desafios. Organizados em [[conteudo/nivel-6-pilhas-filas-listas]]. |
-| `doc_auxiliares/web_sintaxe_c.pdf` | "Apêndice D — Manual de Sintaxe da Linguagem C": cheat-sheet de toda a sintaxe ANSI C. Resumido (com erratas) em [[conteudo/referencia-sintaxe-c]]. |
-
----
-
-## Análises
-
-| Página | Descrição |
-|--------|-----------|
-| [[analises/roteiro-estudo-listas-ifmg]] | O que estudar e praticar em C para resolver as 6 listas do IFMG sem IA — tópicos organizados por nível de dependência (I/O → condicionais → repetição → funções → vetores/matrizes → structs). |
+| `00_material_aula_ifmg/atividades/lista1_basicos.pdf` | Lista 1: algoritmos e fundamentos. Relacionada ao [[01_explicacao_da_ia/nivel-0-fundamentos|Nível 0]]. |
+| `00_material_aula_ifmg/atividades/lista2_condicionais.pdf` | Lista 2: estruturas condicionais. Relacionada ao [[01_explicacao_da_ia/nivel-1-condicionais|Nível 1]]. |
+| `00_material_aula_ifmg/atividades/lista3_repeticao.pdf` | Lista 3: estruturas de repetição. Relacionada ao [[01_explicacao_da_ia/nivel-2-repeticao|Nível 2]]. |
+| `00_material_aula_ifmg/atividades/lista4_funcoes.pdf` | Lista 4: funções. Relacionada ao [[01_explicacao_da_ia/nivel-3-funcoes|Nível 3]]. |
+| `00_material_aula_ifmg/atividades/lista5_vetor_matriz.pdf` | Lista 5: vetores e matrizes. Relacionada ao [[01_explicacao_da_ia/nivel-4-vetores-matrizes|Nível 4]]. |
+| `00_material_aula_ifmg/atividades/lista5_extra.jpeg` | Três exercícios extras de vetores, incorporados ao [[01_explicacao_da_ia/nivel-4-vetores-matrizes|Nível 4]]. |
+| `00_material_aula_ifmg/atividades/lista6_struct.pdf` | Lista 6: structs e registros. Relacionada ao [[01_explicacao_da_ia/nivel-5-structs|Nível 5]]. |
+| `00_material_aula_ifmg/atividades/lista7_fila.pdf` | Lista 7: filas. Relacionada ao [[01_explicacao_da_ia/nivel-6-pilhas-filas-listas|Nível 6]]. |
+| `00_material_aula_ifmg/atividades/lista8_pilha.pdf` | Lista 8: pilhas. Relacionada ao [[01_explicacao_da_ia/nivel-6-pilhas-filas-listas|Nível 6]]. |
+| `00_material_aula_ifmg/aulas/aula_struct.pdf` | Slides de structs/registros usados como base para o [[01_explicacao_da_ia/nivel-5-structs|Nível 5]]. |
+| `00_material_aula_ifmg/aulas/aula_pilha_fila_lista.pdf` | Slides sobre pilhas, filas e listas usados como base para o [[01_explicacao_da_ia/nivel-6-pilhas-filas-listas|Nível 6]]. |
+| `00_material_aula_ifmg/aulas/codigo_empilha.rtf` | Exemplo de implementação de operação de empilhamento. |
+| `03_material_extra/doc_auxiliares/web_sintaxe_c.pdf` | "Apêndice D — Manual de Sintaxe da Linguagem C": referência rápida da sintaxe ANSI C. |
 
 ---
 
@@ -204,22 +206,26 @@ Material didático completo por nível, com explicações simples (analogias e l
 
 | Página | Descrição |
 |--------|-----------|
-| [[conteudo/nivel-0-fundamentos]] | Estrutura de programa, tipos, `printf`/`scanf`, operadores aritméticos. Base para a Lista 1. |
-| [[conteudo/nivel-1-condicionais]] | `if/else if/else`, `switch/case`, operadores relacionais e lógicos, ternário. Base para a Lista 2. |
-| [[conteudo/nivel-2-repeticao]] | `for`, `while`, `do-while`, `break`/`continue`, padrões de acumulador/contador/máximo, laços aninhados. Base para a Lista 3. |
-| [[conteudo/nivel-3-funcoes]] | Funções, parâmetros, passagem por valor vs por referência, ponteiros essenciais, recursão. Base para a Lista 4. |
-| [[conteudo/nivel-4-vetores-matrizes]] | Vetores, strings, matrizes 2D, Bubble Sort, transposta, multiplicação de matrizes, passagem de array para função. Base para a Lista 5. |
-| [[conteudo/nivel-5-structs]] | Registros (`struct`): declaração (`typedef`), acesso por campo, vetor de registros, struct aninhada, structs e funções (valor vs. ponteiro/`->`). Base para a Lista 6. |
-| [[conteudo/nivel-6-pilhas-filas-listas]] | Pilhas (LIFO), filas (FIFO), fila circular, listas com vetor, listas simples e duplas, complexidade e exemplos fáceis, intermediários e difíceis. Base para as Listas 7 e 8. |
-| [[conteudo/referencia-sintaxe-c]] | Cheat-sheet de toda a sintaxe ANSI C (tipos, operadores, controle, funções, estruturas, ponteiros, preprocessador), com erratas da fonte sinalizadas. |
+| [[01_explicacao_da_ia/nivel-0-fundamentos|Nível 0 — Fundamentos]] | Estrutura de programa, tipos, `printf`/`scanf`, operadores aritméticos. Base para a Lista 1. |
+| [[01_explicacao_da_ia/nivel-1-condicionais|Nível 1 — Condicionais]] | `if/else if/else`, `switch/case`, operadores relacionais e lógicos, ternário. Base para a Lista 2. |
+| [[01_explicacao_da_ia/nivel-2-repeticao|Nível 2 — Repetição]] | `for`, `while`, `do-while`, `break`/`continue`, padrões de acumulador/contador/máximo, laços aninhados. Base para a Lista 3. |
+| [[01_explicacao_da_ia/nivel-3-funcoes|Nível 3 — Funções]] | Funções, parâmetros, passagem por valor vs. por referência, ponteiros essenciais e recursão. Base para a Lista 4. |
+| [[01_explicacao_da_ia/nivel-4-vetores-matrizes|Nível 4 — Vetores e Matrizes]] | Vetores, strings, matrizes 2D, Bubble Sort, transposta, multiplicação de matrizes e passagem de array para função. Base para a Lista 5. |
+| [[01_explicacao_da_ia/nivel-5-structs|Nível 5 — Structs]] | Registros (`struct`): declaração (`typedef`), acesso por campo, vetor de registros, struct aninhada e structs em funções. Base para a Lista 6. |
+| [[01_explicacao_da_ia/nivel-6-pilhas-filas-listas|Nível 6 — Pilhas, Filas e Listas]] | Pilhas, filas, fila circular, listas simples e duplas, complexidade e exemplos progressivos. Base para as Listas 7 e 8. |
+| `03_material_extra/doc_auxiliares/web_sintaxe_c.pdf` | Referência rápida da sintaxe ANSI C. |
 
 ---
 
-## Conceitos da Wiki
-*(páginas a criar conforme o estudo avança)*
+## Práticas
 
-## Entidades da Wiki
-*(páginas a criar conforme o estudo avança)*
-
-## Exemplos
-*(páginas a criar conforme o estudo avança)*
+| Lista | Pasta de resoluções | Material de origem |
+|---|---|---|
+| 1 — Básicos | `02_praticas/lista1_basicos/` | `00_material_aula_ifmg/atividades/lista1_basicos.pdf` |
+| 2 — Condicionais | `02_praticas/lista2_condicionais/` | `00_material_aula_ifmg/atividades/lista2_condicionais.pdf` |
+| 3 — Repetição | `02_praticas/lista3_repeticao/` | `00_material_aula_ifmg/atividades/lista3_repeticao.pdf` |
+| 4 — Funções | `02_praticas/lista4_funcoes/` | `00_material_aula_ifmg/atividades/lista4_funcoes.pdf` |
+| 5 — Vetores e matrizes | `02_praticas/lista5_vetor_matriz/` | `00_material_aula_ifmg/atividades/lista5_vetor_matriz.pdf` |
+| 6 — Structs | `02_praticas/lista6_struct/` | `00_material_aula_ifmg/atividades/lista6_struct.pdf` |
+| 7 — Filas | `02_praticas/lista7_fila/` | `00_material_aula_ifmg/atividades/lista7_fila.pdf` |
+| 8 — Pilhas | `02_praticas/lista8_pilha/` | `00_material_aula_ifmg/atividades/lista8_pilha.pdf` |
