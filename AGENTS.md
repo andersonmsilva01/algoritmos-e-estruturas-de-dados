@@ -5,6 +5,17 @@
 1. Não gerar respostas com código em C no chat do opencode, a menos que o usuário peça explicitamente.
    - Exceção: tarefas de compilação/commit de arquivos `.c` de práticas (regras abaixo continuam valendo).
 
+## Criação de pastas de exercícios
+
+Quando o usuário pedir para criar uma pasta de exercícios dentro da pasta de uma lista:
+
+1. Nomear a pasta no padrão `ia_NN_nome_do_tema`, usando dois dígitos para o número e palavras minúsculas separadas por `_`.
+   - Exemplo: `ia_03_soma_dos_elementos`.
+2. Criar três exercícios, organizados por dificuldade:
+   - `ex1.c`: fácil;
+   - `ex2.c`: intermediário;
+   - `ex3.c`: difícil.
+
 ## Compilação de arquivos .c (01_praticas)
 
 Toda vez que o usuário rodar o compilador C (`gcc`) em um arquivo de práticas:
