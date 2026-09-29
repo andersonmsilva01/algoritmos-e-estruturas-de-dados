@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" role="img" aria-labelledby="title description">
+  <title id="title">Algoritmos e Estruturas de Dados em C</title>
+  <desc id="description">Logo animada com nós conectados representando estruturas de dados.</desc>
+
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="55%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#172554"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="55%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="icon-background" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </radialGradient>
+    <filter id="soft-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    .flow {
+      animation: flow 3s linear infinite;
+      stroke-dasharray: 10 9;
+    }
+
+    .node {
+      animation: pulse 2.4s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .node-2 { animation-delay: -0.6s; }
+    .node-3 { animation-delay: -1.2s; }
+    .node-4 { animation-delay: -1.8s; }
+
+    .core {
+      animation: core-glow 2.4s ease-in-out infinite;
+    }
+
+    .cursor {
+      animation: blink 1s steps(2, end) infinite;
+    }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -38; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.55; transform: scale(0.82); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @keyframes core-glow {
+      0%, 100% { opacity: 0.65; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes blink {
+      0%, 45% { opacity: 1; }
+      46%, 100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow, .node, .core, .cursor { animation: none; }
+    }
+  </style>
+
+  <rect x="4" y="4" width="892" height="232" rx="32" fill="url(#background)" stroke="#334155" stroke-width="2"/>
+  <path d="M42 215 C230 165 320 245 505 196 S760 178 858 208" fill="none" stroke="#2563eb" stroke-opacity="0.13" stroke-width="42"/>
+  <path d="M35 28 H865" stroke="url(#accent)" stroke-width="2" stroke-opacity="0.8"/>
+
+  <g aria-hidden="true">
+    <circle cx="130" cy="120" r="88" fill="url(#icon-background)" stroke="#334155" stroke-width="2"/>
+    <circle class="flow" cx="130" cy="120" r="74" fill="none" stroke="url(#accent)" stroke-width="3" opacity="0.75"/>
+
+    <path d="M88 82 L130 120 L174 82 M88 158 L130 120 L174 158 M88 82 L88 158 M174 82 L174 158" fill="none" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="2"/>
+
+    <circle class="node node-1" cx="88" cy="82" r="8" fill="#22d3ee" filter="url(#soft-glow)"/>
+    <circle class="node node-2" cx="174" cy="82" r="8" fill="#60a5fa" filter="url(#soft-glow)"/>
+    <circle class="node node-3" cx="174" cy="158" r="8" fill="#8b5cf6" filter="url(#soft-glow)"/>
+    <circle class="node node-4" cx="88" cy="158" r="8" fill="#2dd4bf" filter="url(#soft-glow)"/>
+
+    <circle class="core" cx="130" cy="120" r="35" fill="#0f172a" stroke="url(#accent)" stroke-width="3" filter="url(#soft-glow)"/>
+    <text x="130" y="134" fill="#f8fafc" font-family="Consolas, 'Courier New', monospace" font-size="43" font-weight="700" text-anchor="middle">C</text>
+  </g>
+
+  <g font-family="'Segoe UI', Arial, sans-serif">
+    <text x="250" y="78" fill="#7dd3fc" font-size="27" font-weight="650" letter-spacing="4">ALGORITMOS &amp;</text>
+    <text x="248" y="127" fill="#f8fafc" font-size="40" font-weight="750" letter-spacing="1">ESTRUTURAS DE DADOS</text>
+    <text x="251" y="166" fill="#94a3b8" font-size="17" font-weight="500" letter-spacing="3">ESTUDO PROGRESSIVO</text>
+    <rect x="486" y="146" width="137" height="31" rx="15.5" fill="#1e40af" fill-opacity="0.5" stroke="#3b82f6" stroke-opacity="0.75"/>
+    <text x="504" y="167" fill="#bfdbfe" font-family="Consolas, 'Courier New', monospace" font-size="16" font-weight="700">LINGUAGEM C</text>
+    <rect class="cursor" x="629" y="151" width="8" height="19" rx="1" fill="#22d3ee"/>
+  </g>
+
+  <g aria-hidden="true" fill="#64748b">
+    <circle cx="815" cy="67" r="3"/>
+    <circle cx="835" cy="67" r="3"/>
+    <circle cx="855" cy="67" r="3"/>
+    <path class="flow" d="M775 188 H855" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.65"/>
+  </g>
+</svg>
