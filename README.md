@@ -2,9 +2,11 @@
   <img src="assets/logo-animated.svg" alt="Logo animada de Algoritmos e Estruturas de Dados em C" width="900">
 </p>
 
-# Algoritmos e Estruturas de Dados em C
 
-Repositório de estudo progressivo da disciplina algoritmos e estruturas de dados I II III na linguagem C. O conteúdo reúne materiais das aulas do IFMG, explicações organizadas por nível, exercícios práticos feitos a mão e documentação de referência.
+
+
+
+Repositório de estudo progressivo das disciplinas algoritmos e estruturas de dados I II III na linguagem C do IFMG. O conteúdo reúne materiais das aulas, explicações organizadas por nível, exercícios práticos feitos a mão e documentação de referência.
 
 ## Objetivos
 
