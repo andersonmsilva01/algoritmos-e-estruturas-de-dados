@@ -184,6 +184,8 @@
 | `ifmg/lista5_extra.jpeg` | Foto de slide com 3 exercícios extras de vetores (menor/maior em vetor de 20; maior + posição em Q de 20 positivos; maior em A de 30). Resolvidos em [[conteudo/nivel-4-vetores-matrizes]]. |
 | `ifmg/aula_struct.pdf` | Slides da aula de **structs/registros** (36 slides): definição, 3 formas de declarar, acesso por campo, struct aninhada, vetor de registros, structs e funções, exemplos completos (números complexos, cadastro). Base de [[conteudo/nivel-5-structs]]. |
 | `ifmg/lista6_struct.pdf` | **Lista 6** (structs): 15 exercícios nível básico + 3 nível médio (IFMG) + 9 do Prof. André Backes (UFU). Exercícios-alvo do Nível 5. |
+| `ifmg/aula_pilha_fila_lista.pdf` | Slides sobre **pilhas, filas e listas** com arranjos, fila circular, listas encadeadas, listas duplas e estruturas genéricas. Base de [[conteudo/nivel-6-pilhas-filas-listas]]. |
+| `ifmg/lista7_fila.pdf` e `ifmg/lista8_pilha.pdf` | Exercícios progressivos de filas e pilhas: interface, cópia, inversão, aplicações clássicas e desafios. Organizados em [[conteudo/nivel-6-pilhas-filas-listas]]. |
 | `doc_auxiliares/web_sintaxe_c.pdf` | "Apêndice D — Manual de Sintaxe da Linguagem C": cheat-sheet de toda a sintaxe ANSI C. Resumido (com erratas) em [[conteudo/referencia-sintaxe-c]]. |
 
 ---
@@ -208,6 +210,7 @@ Material didático completo por nível, com explicações simples (analogias e l
 | [[conteudo/nivel-3-funcoes]] | Funções, parâmetros, passagem por valor vs por referência, ponteiros essenciais, recursão. Base para a Lista 4. |
 | [[conteudo/nivel-4-vetores-matrizes]] | Vetores, strings, matrizes 2D, Bubble Sort, transposta, multiplicação de matrizes, passagem de array para função. Base para a Lista 5. |
 | [[conteudo/nivel-5-structs]] | Registros (`struct`): declaração (`typedef`), acesso por campo, vetor de registros, struct aninhada, structs e funções (valor vs. ponteiro/`->`). Base para a Lista 6. |
+| [[conteudo/nivel-6-pilhas-filas-listas]] | Pilhas (LIFO), filas (FIFO), fila circular, listas com vetor, listas simples e duplas, complexidade e exemplos fáceis, intermediários e difíceis. Base para as Listas 7 e 8. |
 | [[conteudo/referencia-sintaxe-c]] | Cheat-sheet de toda a sintaxe ANSI C (tipos, operadores, controle, funções, estruturas, ponteiros, preprocessador), com erratas da fonte sinalizadas. |
 
 ---

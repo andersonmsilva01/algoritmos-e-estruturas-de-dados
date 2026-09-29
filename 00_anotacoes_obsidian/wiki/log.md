@@ -1,5 +1,9 @@
 # Log da Wiki
 
+## [2026-09-27] conteúdo | Pilhas, filas e listas
+
+Analisados `aula_pilha_fila_lista.pdf`, `lista7_fila.pdf` e `lista8_pilha.pdf`. Criada `wiki/conteudo/nivel-6-pilhas-filas-listas.md` com explicações simples e técnicas, diagramas, comparação de complexidade, correções dos exemplos dos slides e códigos progressivos (fácil, intermediário e difícil) com saídas. Índice e navegação do Nível 5 atualizados.
+
 ## [2026-07-01] query | Lista de exercícios para prova de recuperação
 
 Criada `wiki/analises/simulado-recuperacao.md`: lista de prática cumulativa (Níveis 0–5) para a prova de recuperação (100 pts), organizada por tema em ordem crescente + simulado cronometrado de 6 questões + checklist de armadilhas.
