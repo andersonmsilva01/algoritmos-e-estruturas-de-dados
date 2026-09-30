@@ -229,11 +229,11 @@ São as operações de calculadora: soma, subtração, multiplicação, divisão
 
 Os operadores binários `+`, `-`, `*`, `/`, `%` seguem regras de **conversão aritmética usual**: quando operandos têm tipos diferentes, o "menor" é promovido. 
 - Mas se ambos forem inteiros, a divisão é inteira (descarta a parte fracionária). 
-- O operador `%` só está definido para tipos inteiros.
+- O `%` só está definido para tipos inteiros.
 
 ### Tabela de operadores
 
-| Operador | Nome | Exemplo | Resultado |
+| | Nome | Exemplo | Resultado |
 |----------|------|---------|-----------|
 | `+` | soma | `5 + 3` | `8` |
 | `-` | subtração | `5 - 3` | `2` |
