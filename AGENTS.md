@@ -16,6 +16,17 @@ Quando o usuário pedir para criar uma pasta de exercícios dentro da pasta de u
    - `ex2.c`: intermediário;
    - `ex3.c`: difícil.
 
+## Correção de exercícios
+
+Quando o usuário pedir para corrigir ou revisar uma tentativa de exercício:
+
+1. Preservar o código da tentativa do usuário; não substituí-lo por uma solução pronta, salvo quando isso for pedido explicitamente.
+2. Acrescentar ao final do arquivo um comentário de bloco iniciado por `CORREÇÃO: CORRETO.`, `CORREÇÃO: PARCIALMENTE CORRETO.` ou `CORREÇÃO: INCORRETO.`.
+3. Dentro do comentário, registrar os acertos, os erros encontrados, o motivo de cada erro e os ajustes necessários.
+4. Iniciar cada apontamento somente com `N:` ou `N-M:`, usando os números das linhas da tentativa original a que o comentário se refere, sem escrever `Linha` ou `Linhas` e sem criar itens iniciados por hífen (`-`). Quando o apontamento se aplicar ao exercício inteiro e não a uma linha específica, iniciá-lo com `Geral:`.
+5. Incluir, no mesmo comentário de correção ao final do arquivo, o código correto e completo do exercício, sem substituir a tentativa original do usuário.
+6. Sinalizar explicitamente erros de compilação, acessos fora dos limites e casos de comportamento indefinido.
+
 ## Compilação de arquivos .c (`02_praticas`)
 
 Toda vez que o usuário rodar o compilador C (`gcc`) em um arquivo de práticas:
@@ -28,8 +39,11 @@ Toda vez que o usuário rodar o compilador C (`gcc`) em um arquivo de práticas:
 
 ## Executáveis
 
-1. Sempre que um novo executável for gerado (arquivo binário sem extensão, `.dSYM`, etc.), adicioná-lo ao `.gitignore` imediatamente.
-2. Nunca commitar executáveis ou binários compilados no repositório.
+1. Versionar os executáveis e artefatos de compilação gerados em `02_praticas` — incluindo binários sem extensão e diretórios `.dSYM` — para registrar quais exercícios já foram compilados.
+2. Não adicionar esses artefatos ao `.gitignore`.
+3. Depois de cada compilação, commitar o executável e seus artefatos em um commit separado do arquivo `.c`, usando a mensagem `build(caminho/do/arquivo.c): artefatos da tentativa N`.
+4. Na mensagem do commit, usar o caminho relativo à pasta `02_praticas/` e o mesmo número da tentativa usado no commit do arquivo `.c` correspondente.
+5. Os artefatos produzidos pela mesma compilação podem ficar no mesmo commit, mas nunca misturar artefatos de exercícios ou tentativas diferentes.
 
 ## Commits
 
