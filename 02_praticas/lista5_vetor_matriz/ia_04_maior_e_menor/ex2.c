@@ -4,41 +4,48 @@ Nível: Intermediário
 Assunto: Maior e menor
 
 Enunciado:
-Leia 15 números inteiros. Informe o maior e o menor valor e a primeira posição
-em que cada um aparece. Considere que os índices começam em zero.
+Leia 15 números inteiros. Informe o maior e o menor valor e a primeira posição em que cada um aparece. Considere que os índices começam em zero.
 */
 
 #include <stdio.h>
 
-int main(){
+int main(void) {
+    int v[15];
+    int n = 15;
 
-int v[15];
-int ma= v[0]; int me = v[0];
-int ind1 = v[0]; int ind2 = v[0];
+    printf("v[0]: ");
+    scanf("%d", &v[0]);
 
-for(int i = 0; i < 16; i++){
-    printf("v[%d]: ", i);
-    scanf("%d", &v[i]);
+    int maior = v[0];
+    int menor = v[0];
+    int indiceMaior = 0;
+    int indiceMenor = 0;
 
-    if(v[i] > ma){
-        ma = v[i];
-        ind1 = v[i];
+    for (int i = 1; i < n; i++) {
+        printf("v[%d]: ", i);
+        scanf("%d", &v[i]);
+
+        if (v[i] > maior) {
+            maior = v[i];
+            indiceMaior = i;
+        }
+
+        if (v[i] < menor) {
+            menor = v[i];
+            indiceMenor = i;
+        }
     }
 
-    if(v[i] < me){
-        me = v[i];
-        ind2 = v[i];
-    }
-}
+    printf(
+        "\nMaior: %d, primeira posição: %d\n"
+        "\nMenor: %d, primeira posição: %d\n",
 
-printf(
-    "\n--VALOR--\n"
-    "\nmaior: %d\n"
-    "\nmenor: %d\n"
-    "\n--POSICOES--\n"
-    "\nmaior: %d\n"
-    "\nmenor: %d\n", ma, me, ind1, ind2
-);
+        maior,
+        indiceMaior,
+        menor,
+        indiceMenor
+    );
+
     return 0;
 }
 
