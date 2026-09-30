@@ -1,25 +1,6 @@
 .vscode/
 .obsidian/
 
-# artefatos de compilacao
-*.exe
-*.out
-*.o
-*.obj
-*.pdb
-*.dSYM/
-a.exe
-a.out
-
-# executaveis sem extensao gerados nas praticas
-ex[0-9]
-ex[0-9][0-9]
-ex[0-9].[0-9]
-ex.extra[0-9]
-lista[0-9]_ex[0-9]
-lista[0-9]_ex[0-9][0-9]
-/02_praticas/0.rascunho
-/02_praticas/**/exemplo_funcoes
 
 # lixo do sistema
 .DS_Store
