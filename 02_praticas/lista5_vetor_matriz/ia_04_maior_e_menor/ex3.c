@@ -14,5 +14,6 @@ valores diferentes, informe que não é possível obter o resultado.
 int main(){
 
 
+
     return 0;
 }
