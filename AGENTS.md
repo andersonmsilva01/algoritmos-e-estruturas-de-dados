@@ -26,6 +26,7 @@ Quando o usuário pedir para corrigir ou revisar uma tentativa de exercício:
 4. Iniciar cada apontamento somente com `N:` ou `N-M:`, usando os números das linhas da tentativa original a que o comentário se refere, sem escrever `Linha` ou `Linhas` e sem criar itens iniciados por hífen (`-`). Quando o apontamento se aplicar ao exercício inteiro e não a uma linha específica, iniciá-lo com `Geral:`.
 5. Incluir, no mesmo comentário de correção ao final do arquivo, o código correto e completo do exercício, sem substituir a tentativa original do usuário.
 6. Sinalizar explicitamente erros de compilação, acessos fora dos limites e casos de comportamento indefinido.
+7. Escrever o código da correção de forma limpa, simples e adequada ao nível do exercício, evitando estruturas ou técnicas complexas quando não forem necessárias.
 
 ## Compilação de arquivos .c (`02_praticas`)
 
