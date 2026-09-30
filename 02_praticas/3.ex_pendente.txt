@@ -1,8 +1,10 @@
-LISTA 2
+LISTA 5
 
-ex11
-ex12
-ex13
+02_praticas/lista5_vetor_matriz/ia_03_soma_dos_elementos/ex3.c
+
+02_praticas/lista5_vetor_matriz/ia_04_maior_e_menor/ex1.c
+
+02_praticas/lista5_vetor_matriz/ia_04_maior_e_menor/ex2.c
 
 ---------------------------------------------------------------------
 
