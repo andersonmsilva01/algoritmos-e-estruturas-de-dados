@@ -11,14 +11,15 @@ Leia 10 números inteiros e, depois, leia um número para busca. Informe quantas
 
 int main(){
 
-int v[9];
+int v[10];
+int n = 10;
 int alvo;
 int count = 0;
 
 printf("digite o alvo: ");
 scanf("%d", &alvo);
 
-for(int i = 0; i < 10; i++){
+for(int i = 0; i < n; i++){
     printf("v[%d]: ", i);
     scanf("%d", &v[i]);
 
