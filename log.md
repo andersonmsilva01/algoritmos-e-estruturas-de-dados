@@ -1,5 +1,9 @@
 # Log da Wiki
 
+## [2026-10-01] query | Uso de const em parâmetro de vetor
+
+Explicado em `01_explicacao_da_ia/nivel-4-vetores-matrizes.md` que `const int vetor[]` permite a leitura dos elementos, mas impede que a função os altere por esse parâmetro. Registrada também a equivalência com `const int *vetor` em parâmetros e a diferença entre proteger o acesso da função e tornar o vetor original constante.
+
 ## [2026-09-27] conteúdo | Pilhas, filas e listas
 
 Analisados `aula_pilha_fila_lista.pdf`, `lista7_fila.pdf` e `lista8_pilha.pdf`. Criada `wiki/conteudo/nivel-6-pilhas-filas-listas.md` com explicações simples e técnicas, diagramas, comparação de complexidade, correções dos exemplos dos slides e códigos progressivos (fácil, intermediário e difícil) com saídas. Índice e navegação do Nível 5 atualizados.

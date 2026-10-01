@@ -3,7 +3,7 @@ titulo: Nível 4 — Vetores, Strings e Matrizes
 categoria: conceito
 tags: [vetores, arrays, matrizes, strings, avancado]
 fontes: [Declarations - cppreference.com.md, Null-terminated byte strings.md, lista5_extra.jpeg]
-atualizado: 2026-09-27
+atualizado: 2026-10-01
 ---
 
 # Nível 4 — Vetores, Strings e Matrizes
@@ -290,6 +290,13 @@ int main(void) {
     return 0;
 }
 ```
+
+No parâmetro `const int vetor[]`, o `const` informa que a função pode ler os
+elementos, mas não pode alterá-los por meio de `vetor`. Assim, uma atribuição a
+`vetor[i]` dentro de `imprimir_vetor` seria rejeitada pelo compilador. Em um
+parâmetro de função, essa declaração equivale a `const int *vetor`: os valores
+apontados são protegidos, não o vetor original em todo o programa. O código que
+chamou a função ainda pode alterar esse vetor normalmente depois da chamada.
 
 Saída:
 
