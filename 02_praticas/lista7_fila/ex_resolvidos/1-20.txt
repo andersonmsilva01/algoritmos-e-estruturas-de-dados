@@ -1,0 +1,1046 @@
+LISTA 7 - FILAS
+EXERCICIOS RESOLVIDOS (1 A 20)
+
+Os exercicios 1 a 10 usam a implementacao-base abaixo. Depois da base, cada
+secao mostra somente o codigo novo ou o main necessario para o exercicio.
+
+===============================================================================
+BASE PARA OS EXERCICIOS 01 A 10 - FILA CIRCULAR DE INTEIROS
+===============================================================================
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define CAPACIDADE 100
+
+typedef struct fila {
+    int dados[CAPACIDADE];
+    int primeiro;
+    int ultimo;
+    int quantidade;
+} Fila;
+
+Fila *cria(void) {
+    Fila *f = malloc(sizeof *f);
+
+    if (f != NULL) {
+        f->primeiro = 0;
+        f->ultimo = 0;
+        f->quantidade = 0;
+    }
+
+    return f;
+}
+
+void destroi(Fila *f) {
+    free(f);
+}
+
+int esta_vazia(const Fila *f) {
+    return f->quantidade == 0;
+}
+
+int esta_cheia(const Fila *f) {
+    return f->quantidade == CAPACIDADE;
+}
+
+int tamanho(const Fila *f) {
+    return f->quantidade;
+}
+
+int enfilera(Fila *f, int valor) {
+    if (esta_cheia(f)) {
+        return 0;
+    }
+
+    f->dados[f->ultimo] = valor;
+    f->ultimo = (f->ultimo + 1) % CAPACIDADE;
+    f->quantidade++;
+    return 1;
+}
+
+int desenfilera(Fila *f, int *valor) {
+    if (esta_vazia(f)) {
+        return 0;
+    }
+
+    *valor = f->dados[f->primeiro];
+    f->primeiro = (f->primeiro + 1) % CAPACIDADE;
+    f->quantidade--;
+    return 1;
+}
+
+int frente(const Fila *f, int *valor) {
+    if (esta_vazia(f)) {
+        return 0;
+    }
+
+    *valor = f->dados[f->primeiro];
+    return 1;
+}
+
+===============================================================================
+EXERCICIO 01 - Programa de teste
+===============================================================================
+
+int main(void) {
+    Fila *f = cria();
+    int valor;
+
+    if (f == NULL) {
+        printf("Nao foi possivel criar a fila.\n");
+        return 1;
+    }
+
+    enfilera(f, 3);
+    enfilera(f, 7);
+    enfilera(f, 1);
+    enfilera(f, 9);
+
+    printf("Tamanho: %d\n", tamanho(f));
+
+    while (desenfilera(f, &valor)) {
+        printf("%d\n", valor);
+    }
+
+    destroi(f);
+    return 0;
+}
+
+Saida: 3, 7, 1 e 9, confirmando a ordem FIFO.
+
+===============================================================================
+EXERCICIO 02 - Consultar a frente sem remover
+===============================================================================
+
+int frente(const Fila *f, int *valor) {
+    if (esta_vazia(f)) {
+        return 0;
+    }
+
+    *valor = f->dados[f->primeiro];
+    return 1;
+}
+
+Uso:
+
+int valor;
+if (frente(f, &valor)) {
+    printf("Frente: %d\n", valor);
+} else {
+    printf("Fila vazia.\n");
+}
+
+O indice primeiro e a quantidade nao sao alterados.
+
+===============================================================================
+EXERCICIO 03 - Verificar fila vazia e fila cheia
+===============================================================================
+
+int esta_vazia(const Fila *f) {
+    return f->quantidade == 0;
+}
+
+int esta_cheia(const Fila *f) {
+    return f->quantidade == CAPACIDADE;
+}
+
+int enfilera(Fila *f, int valor) {
+    if (esta_cheia(f)) {
+        return 0;
+    }
+
+    f->dados[f->ultimo] = valor;
+    f->ultimo = (f->ultimo + 1) % CAPACIDADE;
+    f->quantidade++;
+    return 1;
+}
+
+int desenfilera(Fila *f, int *valor) {
+    if (esta_vazia(f)) {
+        return 0;
+    }
+
+    *valor = f->dados[f->primeiro];
+    f->primeiro = (f->primeiro + 1) % CAPACIDADE;
+    f->quantidade--;
+    return 1;
+}
+
+===============================================================================
+EXERCICIO 04 - Esvaziar uma fila
+===============================================================================
+
+void esvazia(Fila *f) {
+    int valor;
+
+    while (desenfilera(f, &valor)) {
+        /* Remove ate a fila ficar vazia. */
+    }
+}
+
+Depois da chamada, a estrutura continua alocada e pode receber novos valores.
+
+===============================================================================
+EXERCICIO 05 - Imprimir uma fila sem destrui-la
+===============================================================================
+
+void imprime(Fila *f) {
+    int quantidade_inicial = tamanho(f);
+
+    for (int i = 0; i < quantidade_inicial; i++) {
+        int valor;
+        desenfilera(f, &valor);
+        printf("%d ", valor);
+        enfilera(f, valor);
+    }
+    printf("\n");
+}
+
+Cada elemento sai pela frente e volta para o fim. Depois de uma volta completa,
+a fila recupera exatamente a ordem inicial, inclusive quando os indices deram
+a volta no vetor circular.
+
+===============================================================================
+EXERCICIO 06 - Copiar uma fila
+===============================================================================
+
+Fila *copia(Fila *f) {
+    Fila *nova = cria();
+
+    if (nova == NULL) {
+        return NULL;
+    }
+
+    int quantidade_inicial = tamanho(f);
+
+    for (int i = 0; i < quantidade_inicial; i++) {
+        int valor;
+        desenfilera(f, &valor);
+        enfilera(f, valor);
+        enfilera(nova, valor);
+    }
+
+    return nova;
+}
+
+===============================================================================
+EXERCICIO 07 - Verificar se duas filas sao iguais
+===============================================================================
+
+int iguais(Fila *a, Fila *b) {
+    if (tamanho(a) != tamanho(b)) {
+        return 0;
+    }
+
+    int quantidade = tamanho(a);
+    int sao_iguais = 1;
+
+    for (int i = 0; i < quantidade; i++) {
+        int valor_a;
+        int valor_b;
+
+        desenfilera(a, &valor_a);
+        desenfilera(b, &valor_b);
+        enfilera(a, valor_a);
+        enfilera(b, valor_b);
+
+        if (valor_a != valor_b) {
+            sao_iguais = 0;
+        }
+    }
+
+    return sao_iguais;
+}
+
+===============================================================================
+EXERCICIO 08 - Inverter uma fila
+===============================================================================
+
+typedef struct {
+    int dados[CAPACIDADE];
+    int topo;
+} PilhaAuxiliar;
+
+void inverte(Fila *f) {
+    PilhaAuxiliar pilha;
+    pilha.topo = 0;
+
+    while (!esta_vazia(f)) {
+        int valor;
+        desenfilera(f, &valor);
+        pilha.dados[pilha.topo] = valor;
+        pilha.topo++;
+    }
+
+    while (pilha.topo > 0) {
+        pilha.topo--;
+        enfilera(f, pilha.dados[pilha.topo]);
+    }
+}
+
+===============================================================================
+EXERCICIO 09 - Intercalar duas filas
+===============================================================================
+
+Fila *intercala(Fila *a, Fila *b) {
+    if (tamanho(a) + tamanho(b) > CAPACIDADE) {
+        return NULL;
+    }
+
+    Fila *resultado = cria();
+    if (resultado == NULL) {
+        return NULL;
+    }
+
+    int quantidade_a = tamanho(a);
+    int quantidade_b = tamanho(b);
+    int maior_quantidade = quantidade_a;
+
+    if (quantidade_b > maior_quantidade) {
+        maior_quantidade = quantidade_b;
+    }
+
+    for (int i = 0; i < maior_quantidade; i++) {
+        int valor;
+
+        if (i < quantidade_a) {
+            desenfilera(a, &valor);
+            enfilera(a, valor);
+            enfilera(resultado, valor);
+        }
+
+        if (i < quantidade_b) {
+            desenfilera(b, &valor);
+            enfilera(b, valor);
+            enfilera(resultado, valor);
+        }
+    }
+
+    return resultado;
+}
+
+As filas a e b terminam intactas. A funcao retorna NULL se a soma dos tamanhos
+ultrapassar a capacidade da fila resultante.
+
+===============================================================================
+EXERCICIO 10 - Remover todas as ocorrencias de um valor
+===============================================================================
+
+void remove_valor(Fila *f, int procurado) {
+    Fila *auxiliar = cria();
+
+    if (auxiliar == NULL) {
+        return;
+    }
+
+    int valor;
+    while (desenfilera(f, &valor)) {
+        if (valor != procurado) {
+            enfilera(auxiliar, valor);
+        }
+    }
+
+    while (desenfilera(auxiliar, &valor)) {
+        enfilera(f, valor);
+    }
+
+    destroi(auxiliar);
+}
+
+===============================================================================
+EXERCICIO 11 - Simular uma fila de atendimento
+===============================================================================
+
+int main(void) {
+    Fila *clientes = cria();
+    int quantidade;
+
+    if (clientes == NULL) {
+        return 1;
+    }
+
+    do {
+        printf("Quantidade de clientes (1 a %d): ", CAPACIDADE);
+        scanf("%d", &quantidade);
+    } while (quantidade < 1 || quantidade > CAPACIDADE);
+
+    for (int i = 0; i < quantidade; i++) {
+        int tempo_atendimento;
+        printf("Tempo de atendimento do cliente %d: ", i + 1);
+        scanf("%d", &tempo_atendimento);
+        enfilera(clientes, tempo_atendimento);
+    }
+
+    int tempo_decorrido = 0;
+    int soma_esperas = 0;
+    int numero_cliente = 1;
+
+    while (!esta_vazia(clientes)) {
+        int tempo_atendimento;
+        desenfilera(clientes, &tempo_atendimento);
+
+        printf("Cliente %d esperou %d minuto(s).\n",
+               numero_cliente, tempo_decorrido);
+        soma_esperas += tempo_decorrido;
+        tempo_decorrido += tempo_atendimento;
+        numero_cliente++;
+    }
+
+    printf("Tempo medio de espera: %.2f minuto(s).\n",
+           (float)soma_esperas / quantidade);
+
+    destroi(clientes);
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 12 - Gerar numeros binarios de 1 ate N
+===============================================================================
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ITENS 200
+#define MAX_TEXTO 65
+
+typedef struct {
+    char dados[MAX_ITENS][MAX_TEXTO];
+    int inicio;
+    int fim;
+    int quantidade;
+} FilaStrings;
+
+void inicializar(FilaStrings *f) {
+    f->inicio = 0;
+    f->fim = 0;
+    f->quantidade = 0;
+}
+
+int enfileirar_string(FilaStrings *f, const char texto[]) {
+    if (f->quantidade == MAX_ITENS) {
+        return 0;
+    }
+
+    strcpy(f->dados[f->fim], texto);
+    f->fim = (f->fim + 1) % MAX_ITENS;
+    f->quantidade++;
+    return 1;
+}
+
+int desenfileirar_string(FilaStrings *f, char texto[]) {
+    if (f->quantidade == 0) {
+        return 0;
+    }
+
+    strcpy(texto, f->dados[f->inicio]);
+    f->inicio = (f->inicio + 1) % MAX_ITENS;
+    f->quantidade--;
+    return 1;
+}
+
+int main(void) {
+    FilaStrings fila;
+    int n;
+
+    printf("N (1 a 100): ");
+    scanf("%d", &n);
+
+    if (n < 1 || n > 100) {
+        printf("Valor invalido.\n");
+        return 1;
+    }
+
+    inicializar(&fila);
+    enfileirar_string(&fila, "1");
+
+    for (int i = 0; i < n; i++) {
+        char atual[MAX_TEXTO];
+        char com_zero[MAX_TEXTO];
+        char com_um[MAX_TEXTO];
+
+        desenfileirar_string(&fila, atual);
+        printf("%s ", atual);
+
+        strcpy(com_zero, atual);
+        strcat(com_zero, "0");
+        strcpy(com_um, atual);
+        strcat(com_um, "1");
+
+        enfileirar_string(&fila, com_zero);
+        enfileirar_string(&fila, com_um);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 13 - Simular o problema da batata quente
+===============================================================================
+
+int main(void) {
+    Fila *criancas = cria();
+    int n;
+    int k;
+
+    if (criancas == NULL) {
+        return 1;
+    }
+
+    printf("Quantidade de criancas: ");
+    scanf("%d", &n);
+    printf("Numero de passagens: ");
+    scanf("%d", &k);
+
+    if (n < 1 || n > CAPACIDADE || k < 1) {
+        printf("Valores invalidos.\n");
+        destroi(criancas);
+        return 1;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        enfilera(criancas, i);
+    }
+
+    printf("Ordem de eliminacao: ");
+    while (tamanho(criancas) > 1) {
+        for (int passagem = 1; passagem < k; passagem++) {
+            int crianca;
+            desenfilera(criancas, &crianca);
+            enfilera(criancas, crianca);
+        }
+
+        int eliminada;
+        desenfilera(criancas, &eliminada);
+        printf("%d ", eliminada);
+    }
+
+    int vencedora;
+    desenfilera(criancas, &vencedora);
+    printf("\nVencedora: %d\n", vencedora);
+
+    destroi(criancas);
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 14 - Simular escalonamento round-robin
+===============================================================================
+
+#include <stdio.h>
+
+#define MAX_PROCESSOS 100
+
+typedef struct {
+    int id;
+    int tempo_restante;
+} Processo;
+
+typedef struct {
+    Processo dados[MAX_PROCESSOS];
+    int inicio;
+    int fim;
+    int quantidade;
+} FilaProcessos;
+
+void inicializar(FilaProcessos *f) {
+    f->inicio = 0;
+    f->fim = 0;
+    f->quantidade = 0;
+}
+
+int enfileirar_processo(FilaProcessos *f, Processo processo) {
+    if (f->quantidade == MAX_PROCESSOS) {
+        return 0;
+    }
+
+    f->dados[f->fim] = processo;
+    f->fim = (f->fim + 1) % MAX_PROCESSOS;
+    f->quantidade++;
+    return 1;
+}
+
+int desenfileirar_processo(FilaProcessos *f, Processo *processo) {
+    if (f->quantidade == 0) {
+        return 0;
+    }
+
+    *processo = f->dados[f->inicio];
+    f->inicio = (f->inicio + 1) % MAX_PROCESSOS;
+    f->quantidade--;
+    return 1;
+}
+
+int main(void) {
+    FilaProcessos fila;
+    int quantidade;
+    int quantum;
+    int tempo_total = 0;
+
+    inicializar(&fila);
+
+    printf("Quantidade de processos: ");
+    scanf("%d", &quantidade);
+    printf("Quantum: ");
+    scanf("%d", &quantum);
+
+    if (quantidade < 1 || quantidade > MAX_PROCESSOS || quantum < 1) {
+        printf("Valores invalidos.\n");
+        return 1;
+    }
+
+    for (int i = 0; i < quantidade; i++) {
+        Processo processo;
+        processo.id = i + 1;
+        printf("Tempo total do processo P%d: ", processo.id);
+        scanf("%d", &processo.tempo_restante);
+        enfileirar_processo(&fila, processo);
+    }
+
+    printf("Ordem de termino:\n");
+    while (fila.quantidade > 0) {
+        Processo processo;
+        desenfileirar_processo(&fila, &processo);
+
+        if (processo.tempo_restante <= quantum) {
+            tempo_total += processo.tempo_restante;
+            processo.tempo_restante = 0;
+            printf("P%d terminou no tempo %d.\n", processo.id, tempo_total);
+        } else {
+            processo.tempo_restante -= quantum;
+            tempo_total += quantum;
+            enfileirar_processo(&fila, processo);
+        }
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 15 - Implementar uma fila circular
+===============================================================================
+
+#include <stdio.h>
+
+#define CAPACIDADE 10
+
+typedef struct {
+    int dados[CAPACIDADE];
+    int primeiro;
+    int ultimo;
+    int quantidade;
+} FilaCircular;
+
+void inicializar(FilaCircular *f) {
+    f->primeiro = 0;
+    f->ultimo = 0;
+    f->quantidade = 0;
+}
+
+int enfilera(FilaCircular *f, int valor) {
+    if (f->quantidade == CAPACIDADE) {
+        return 0;
+    }
+
+    f->dados[f->ultimo] = valor;
+    f->ultimo = (f->ultimo + 1) % CAPACIDADE;
+    f->quantidade++;
+    return 1;
+}
+
+int desenfilera(FilaCircular *f, int *valor) {
+    if (f->quantidade == 0) {
+        return 0;
+    }
+
+    *valor = f->dados[f->primeiro];
+    f->primeiro = (f->primeiro + 1) % CAPACIDADE;
+    f->quantidade--;
+    return 1;
+}
+
+/*
+A implementacao guarda um contador. Assim, primeiro == ultimo significa fila
+vazia quando quantidade == 0 e fila cheia quando quantidade == CAPACIDADE.
+Nenhuma posicao do vetor precisa ser sacrificada.
+*/
+
+===============================================================================
+EXERCICIO 16 - Implementar uma fila usando duas pilhas
+===============================================================================
+
+#include <stdio.h>
+
+#define CAPACIDADE 100
+
+typedef struct {
+    int dados[CAPACIDADE];
+    int topo;
+} Pilha;
+
+typedef struct {
+    Pilha entrada;
+    Pilha saida;
+} FilaDuasPilhas;
+
+void pilha_inicializar(Pilha *p) {
+    p->topo = 0;
+}
+
+int pilha_empilhar(Pilha *p, int valor) {
+    if (p->topo == CAPACIDADE) {
+        return 0;
+    }
+
+    p->dados[p->topo] = valor;
+    p->topo++;
+    return 1;
+}
+
+int pilha_desempilhar(Pilha *p, int *valor) {
+    if (p->topo == 0) {
+        return 0;
+    }
+
+    p->topo--;
+    *valor = p->dados[p->topo];
+    return 1;
+}
+
+void fila_inicializar(FilaDuasPilhas *f) {
+    pilha_inicializar(&f->entrada);
+    pilha_inicializar(&f->saida);
+}
+
+int fila_tamanho(const FilaDuasPilhas *f) {
+    return f->entrada.topo + f->saida.topo;
+}
+
+int enfilera(FilaDuasPilhas *f, int valor) {
+    if (fila_tamanho(f) == CAPACIDADE) {
+        return 0;
+    }
+
+    return pilha_empilhar(&f->entrada, valor);
+}
+
+int desenfilera(FilaDuasPilhas *f, int *valor) {
+    if (f->saida.topo == 0) {
+        int temporario;
+
+        while (pilha_desempilhar(&f->entrada, &temporario)) {
+            pilha_empilhar(&f->saida, temporario);
+        }
+    }
+
+    return pilha_desempilhar(&f->saida, valor);
+}
+
+/*
+Enfileirar custa O(1). Desenfileirar pode custar O(n) durante uma transferencia,
+mas cada elemento e transferido somente uma vez; portanto, o custo amortizado
+de cada operacao e O(1).
+*/
+
+===============================================================================
+EXERCICIO 17 - Implementar uma fila com ponteiros
+===============================================================================
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no {
+    int valor;
+    struct no *proximo;
+} No;
+
+typedef struct fila {
+    No *primeiro;
+    No *ultimo;
+    int quantidade;
+} Fila;
+
+Fila *cria(void) {
+    Fila *f = malloc(sizeof *f);
+
+    if (f != NULL) {
+        f->primeiro = NULL;
+        f->ultimo = NULL;
+        f->quantidade = 0;
+    }
+
+    return f;
+}
+
+int enfilera(Fila *f, int valor) {
+    No *novo = malloc(sizeof *novo);
+
+    if (novo == NULL) {
+        return 0;
+    }
+
+    novo->valor = valor;
+    novo->proximo = NULL;
+
+    if (f->ultimo == NULL) {
+        f->primeiro = novo;
+    } else {
+        f->ultimo->proximo = novo;
+    }
+
+    f->ultimo = novo;
+    f->quantidade++;
+    return 1;
+}
+
+int desenfilera(Fila *f, int *valor) {
+    if (f->primeiro == NULL) {
+        return 0;
+    }
+
+    No *removido = f->primeiro;
+    *valor = removido->valor;
+    f->primeiro = removido->proximo;
+
+    if (f->primeiro == NULL) {
+        f->ultimo = NULL;
+    }
+
+    free(removido);
+    f->quantidade--;
+    return 1;
+}
+
+int tamanho(const Fila *f) {
+    return f->quantidade;
+}
+
+void destroi(Fila *f) {
+    int valor;
+    while (desenfilera(f, &valor)) {
+    }
+    free(f);
+}
+
+/*
+O ponteiro ultimo permite inserir diretamente no fim em O(1). Sem ele, seria
+necessario percorrer todos os nos. Nao existe capacidade fixa; a fila so deixa
+de crescer se malloc falhar.
+*/
+
+===============================================================================
+EXERCICIO 18 - Implementar um deque
+===============================================================================
+
+#include <stdio.h>
+
+#define CAPACIDADE 100
+
+typedef struct {
+    int dados[CAPACIDADE];
+    int inicio;
+    int quantidade;
+} Deque;
+
+void inicializar(Deque *d) {
+    d->inicio = 0;
+    d->quantidade = 0;
+}
+
+int insere_inicio(Deque *d, int valor) {
+    if (d->quantidade == CAPACIDADE) {
+        return 0;
+    }
+
+    d->inicio = (d->inicio - 1 + CAPACIDADE) % CAPACIDADE;
+    d->dados[d->inicio] = valor;
+    d->quantidade++;
+    return 1;
+}
+
+int insere_fim(Deque *d, int valor) {
+    if (d->quantidade == CAPACIDADE) {
+        return 0;
+    }
+
+    int fim = (d->inicio + d->quantidade) % CAPACIDADE;
+    d->dados[fim] = valor;
+    d->quantidade++;
+    return 1;
+}
+
+int remove_inicio(Deque *d, int *valor) {
+    if (d->quantidade == 0) {
+        return 0;
+    }
+
+    *valor = d->dados[d->inicio];
+    d->inicio = (d->inicio + 1) % CAPACIDADE;
+    d->quantidade--;
+    return 1;
+}
+
+int remove_fim(Deque *d, int *valor) {
+    if (d->quantidade == 0) {
+        return 0;
+    }
+
+    int fim = (d->inicio + d->quantidade - 1) % CAPACIDADE;
+    *valor = d->dados[fim];
+    d->quantidade--;
+    return 1;
+}
+
+/* Todas as quatro operacoes possuem complexidade O(1). */
+
+===============================================================================
+EXERCICIO 19 - Implementar uma fila generica
+===============================================================================
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no {
+    void *dado;
+    struct no *proximo;
+} No;
+
+typedef struct fila {
+    No *primeiro;
+    No *ultimo;
+} Fila;
+
+void inicializar(Fila *f) {
+    f->primeiro = NULL;
+    f->ultimo = NULL;
+}
+
+int enfilera(Fila *f, void *dado) {
+    No *novo = malloc(sizeof *novo);
+
+    if (novo == NULL) {
+        return 0;
+    }
+
+    novo->dado = dado;
+    novo->proximo = NULL;
+
+    if (f->ultimo == NULL) {
+        f->primeiro = novo;
+    } else {
+        f->ultimo->proximo = novo;
+    }
+
+    f->ultimo = novo;
+    return 1;
+}
+
+void *desenfilera(Fila *f) {
+    if (f->primeiro == NULL) {
+        return NULL;
+    }
+
+    No *removido = f->primeiro;
+    void *dado = removido->dado;
+    f->primeiro = removido->proximo;
+
+    if (f->primeiro == NULL) {
+        f->ultimo = NULL;
+    }
+
+    free(removido);
+    return dado;
+}
+
+int main(void) {
+    Fila fila;
+    inicializar(&fila);
+
+    for (int i = 0; i < 3; i++) {
+        double *valor = malloc(sizeof *valor);
+
+        if (valor == NULL) {
+            return 1;
+        }
+
+        printf("Digite um double: ");
+        scanf("%lf", valor);
+
+        if (!enfilera(&fila, valor)) {
+            free(valor);
+            return 1;
+        }
+    }
+
+    double *valor;
+    while ((valor = desenfilera(&fila)) != NULL) {
+        printf("%.2f\n", *valor);
+        free(valor);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 20 - Implementar uma fila de prioridade
+===============================================================================
+
+#include <stdio.h>
+
+#define CAPACIDADE 100
+
+typedef struct {
+    int valor;
+    int prioridade;
+} Item;
+
+typedef struct {
+    Item itens[CAPACIDADE];
+    int quantidade;
+} FilaPrioridade;
+
+void inicializar(FilaPrioridade *f) {
+    f->quantidade = 0;
+}
+
+int enfilera(FilaPrioridade *f, int valor, int prioridade) {
+    if (f->quantidade == CAPACIDADE) {
+        return 0;
+    }
+
+    f->itens[f->quantidade].valor = valor;
+    f->itens[f->quantidade].prioridade = prioridade;
+    f->quantidade++;
+    return 1;
+}
+
+int desenfilera(FilaPrioridade *f, int *valor) {
+    if (f->quantidade == 0) {
+        return 0;
+    }
+
+    int indice_maior = 0;
+
+    for (int i = 1; i < f->quantidade; i++) {
+        if (f->itens[i].prioridade > f->itens[indice_maior].prioridade) {
+            indice_maior = i;
+        }
+    }
+
+    *valor = f->itens[indice_maior].valor;
+
+    for (int i = indice_maior; i < f->quantidade - 1; i++) {
+        f->itens[i] = f->itens[i + 1];
+    }
+
+    f->quantidade--;
+    return 1;
+}
+
+/*
+A insercao e O(1) e a remocao e O(n). Como a busca usa apenas >, em caso de
+empate o primeiro item de maior prioridade e removido, preservando a ordem de
+chegada. Uma heap reduziria a remocao para O(log n), mas exigiria um contador de
+chegada para manter a estabilidade nos empates.
+*/

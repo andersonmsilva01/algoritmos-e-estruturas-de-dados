@@ -1,0 +1,828 @@
+LISTA 8 - PILHAS
+EXERCICIOS RESOLVIDOS (1 A 17)
+
+Os exercicios 1 a 10 usam a implementacao-base abaixo. Depois da base, cada
+secao mostra somente o codigo novo ou o main necessario para o exercicio.
+
+===============================================================================
+BASE PARA OS EXERCICIOS 01 A 10 - PILHA DE INTEIROS
+===============================================================================
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define CAPACIDADE 100
+
+typedef struct pilha {
+    int dados[CAPACIDADE];
+    int topo;
+} Pilha;
+
+Pilha *cria(void) {
+    Pilha *p = malloc(sizeof *p);
+
+    if (p != NULL) {
+        p->topo = 0;
+    }
+
+    return p;
+}
+
+void destroi(Pilha *p) {
+    free(p);
+}
+
+int esta_vazia(const Pilha *p) {
+    return p->topo == 0;
+}
+
+int esta_cheia(const Pilha *p) {
+    return p->topo == CAPACIDADE;
+}
+
+int tamanho(const Pilha *p) {
+    return p->topo;
+}
+
+int empilha(Pilha *p, int valor) {
+    if (esta_cheia(p)) {
+        return 0;
+    }
+
+    p->dados[p->topo] = valor;
+    p->topo++;
+    return 1;
+}
+
+int desempilha(Pilha *p, int *valor) {
+    if (esta_vazia(p)) {
+        return 0;
+    }
+
+    p->topo--;
+    *valor = p->dados[p->topo];
+    return 1;
+}
+
+int topo(const Pilha *p, int *valor) {
+    if (esta_vazia(p)) {
+        return 0;
+    }
+
+    *valor = p->dados[p->topo - 1];
+    return 1;
+}
+
+===============================================================================
+EXERCICIO 01 - Programa de teste
+===============================================================================
+
+int main(void) {
+    Pilha *p = cria();
+    int valor;
+
+    if (p == NULL) {
+        printf("Nao foi possivel criar a pilha.\n");
+        return 1;
+    }
+
+    empilha(p, 3);
+    empilha(p, 7);
+    empilha(p, 1);
+    empilha(p, 9);
+
+    printf("Tamanho: %d\n", tamanho(p));
+
+    while (desempilha(p, &valor)) {
+        printf("%d\n", valor);
+    }
+
+    destroi(p);
+    return 0;
+}
+
+Saida: 9, 1, 7 e 3, confirmando a ordem LIFO.
+
+===============================================================================
+EXERCICIO 02 - Consultar o topo sem remover
+===============================================================================
+
+int topo(const Pilha *p, int *valor) {
+    if (esta_vazia(p)) {
+        return 0;
+    }
+
+    *valor = p->dados[p->topo - 1];
+    return 1;
+}
+
+Uso:
+
+int valor;
+if (topo(p, &valor)) {
+    printf("Topo: %d\n", valor);
+} else {
+    printf("Pilha vazia.\n");
+}
+
+A quantidade de elementos nao e alterada.
+
+===============================================================================
+EXERCICIO 03 - Verificar pilha vazia e pilha cheia
+===============================================================================
+
+int esta_vazia(const Pilha *p) {
+    return p->topo == 0;
+}
+
+int esta_cheia(const Pilha *p) {
+    return p->topo == CAPACIDADE;
+}
+
+int empilha(Pilha *p, int valor) {
+    if (esta_cheia(p)) {
+        return 0;
+    }
+
+    p->dados[p->topo] = valor;
+    p->topo++;
+    return 1;
+}
+
+int desempilha(Pilha *p, int *valor) {
+    if (esta_vazia(p)) {
+        return 0;
+    }
+
+    p->topo--;
+    *valor = p->dados[p->topo];
+    return 1;
+}
+
+===============================================================================
+EXERCICIO 04 - Esvaziar uma pilha
+===============================================================================
+
+void esvazia(Pilha *p) {
+    int valor;
+
+    while (desempilha(p, &valor)) {
+        /* Remove ate a pilha ficar vazia. */
+    }
+}
+
+A pilha continua alocada e pode receber novos valores depois da chamada.
+
+===============================================================================
+EXERCICIO 05 - Imprimir uma pilha sem destrui-la
+===============================================================================
+
+void imprime(Pilha *p) {
+    Pilha *auxiliar = cria();
+
+    if (auxiliar == NULL) {
+        return;
+    }
+
+    int valor;
+    while (desempilha(p, &valor)) {
+        printf("%d ", valor);
+        empilha(auxiliar, valor);
+    }
+    printf("\n");
+
+    while (desempilha(auxiliar, &valor)) {
+        empilha(p, valor);
+    }
+
+    destroi(auxiliar);
+}
+
+===============================================================================
+EXERCICIO 06 - Copiar uma pilha
+===============================================================================
+
+Pilha *copia(Pilha *p) {
+    Pilha *auxiliar = cria();
+    Pilha *nova = cria();
+
+    if (auxiliar == NULL || nova == NULL) {
+        destroi(auxiliar);
+        destroi(nova);
+        return NULL;
+    }
+
+    int valor;
+    while (desempilha(p, &valor)) {
+        empilha(auxiliar, valor);
+    }
+
+    while (desempilha(auxiliar, &valor)) {
+        empilha(p, valor);
+        empilha(nova, valor);
+    }
+
+    destroi(auxiliar);
+    return nova;
+}
+
+===============================================================================
+EXERCICIO 07 - Verificar se duas pilhas sao iguais
+===============================================================================
+
+int iguais(Pilha *a, Pilha *b) {
+    if (tamanho(a) != tamanho(b)) {
+        return 0;
+    }
+
+    Pilha *auxiliar_a = cria();
+    Pilha *auxiliar_b = cria();
+
+    if (auxiliar_a == NULL || auxiliar_b == NULL) {
+        destroi(auxiliar_a);
+        destroi(auxiliar_b);
+        return 0;
+    }
+
+    int sao_iguais = 1;
+    int valor_a;
+    int valor_b;
+
+    while (desempilha(a, &valor_a) && desempilha(b, &valor_b)) {
+        if (valor_a != valor_b) {
+            sao_iguais = 0;
+        }
+
+        empilha(auxiliar_a, valor_a);
+        empilha(auxiliar_b, valor_b);
+    }
+
+    while (desempilha(auxiliar_a, &valor_a)) {
+        empilha(a, valor_a);
+    }
+    while (desempilha(auxiliar_b, &valor_b)) {
+        empilha(b, valor_b);
+    }
+
+    destroi(auxiliar_a);
+    destroi(auxiliar_b);
+    return sao_iguais;
+}
+
+===============================================================================
+EXERCICIO 08 - Inverter uma pilha
+===============================================================================
+
+void inverte(Pilha *p) {
+    Pilha *auxiliar_a = cria();
+    Pilha *auxiliar_b = cria();
+
+    if (auxiliar_a == NULL || auxiliar_b == NULL) {
+        destroi(auxiliar_a);
+        destroi(auxiliar_b);
+        return;
+    }
+
+    int valor;
+
+    while (desempilha(p, &valor)) {
+        empilha(auxiliar_a, valor);
+    }
+    while (desempilha(auxiliar_a, &valor)) {
+        empilha(auxiliar_b, valor);
+    }
+    while (desempilha(auxiliar_b, &valor)) {
+        empilha(p, valor);
+    }
+
+    destroi(auxiliar_a);
+    destroi(auxiliar_b);
+}
+
+===============================================================================
+EXERCICIO 09 - Inverter uma string
+===============================================================================
+
+#include <stdio.h>
+
+#define MAX_TEXTO 100
+
+int main(void) {
+    char palavra[MAX_TEXTO];
+    char pilha[MAX_TEXTO];
+    int topo = 0;
+
+    printf("Palavra: ");
+    scanf(" %99s", palavra);
+
+    for (int i = 0; palavra[i] != '\0'; i++) {
+        pilha[topo] = palavra[i];
+        topo++;
+    }
+
+    printf("Invertida: ");
+    while (topo > 0) {
+        topo--;
+        printf("%c", pilha[topo]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 10 - Ordenar uma pilha
+===============================================================================
+
+void ordena(Pilha *p) {
+    Pilha *auxiliar = cria();
+
+    if (auxiliar == NULL) {
+        return;
+    }
+
+    int atual;
+    while (desempilha(p, &atual)) {
+        int valor_topo;
+
+        while (topo(auxiliar, &valor_topo) && valor_topo > atual) {
+            desempilha(auxiliar, &valor_topo);
+            empilha(p, valor_topo);
+        }
+
+        empilha(auxiliar, atual);
+    }
+
+    while (desempilha(auxiliar, &atual)) {
+        empilha(p, atual);
+    }
+
+    destroi(auxiliar);
+}
+
+Ao final, o menor elemento fica no topo da pilha original.
+
+===============================================================================
+EXERCICIO 11 - Verificar parenteses balanceados
+===============================================================================
+
+#include <stdio.h>
+
+#define MAX_TEXTO 200
+
+int combina(char abertura, char fechamento) {
+    return (abertura == '(' && fechamento == ')') ||
+           (abertura == '[' && fechamento == ']') ||
+           (abertura == '{' && fechamento == '}');
+}
+
+int balanceada(const char *s) {
+    char pilha[MAX_TEXTO];
+    int topo = 0;
+
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (s[i] == '(' || s[i] == '[' || s[i] == '{') {
+            if (topo == MAX_TEXTO) {
+                return 0;
+            }
+
+            pilha[topo] = s[i];
+            topo++;
+        } else if (s[i] == ')' || s[i] == ']' || s[i] == '}') {
+            if (topo == 0) {
+                return 0;
+            }
+
+            topo--;
+            if (!combina(pilha[topo], s[i])) {
+                return 0;
+            }
+        }
+    }
+
+    return topo == 0;
+}
+
+int main(void) {
+    char expressao[MAX_TEXTO];
+
+    printf("Expressao: ");
+    scanf(" %199[^\n]", expressao);
+
+    if (balanceada(expressao)) {
+        printf("Expressao balanceada.\n");
+    } else {
+        printf("Expressao nao balanceada.\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 12 - Verificar palindromo
+===============================================================================
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_TEXTO 200
+
+int palindromo(const char *s) {
+    char pilha[MAX_TEXTO];
+    int topo = 0;
+    int tamanho = strlen(s);
+
+    for (int i = 0; i < tamanho; i++) {
+        pilha[topo] = s[i];
+        topo++;
+    }
+
+    for (int i = 0; i < tamanho; i++) {
+        topo--;
+        if (s[i] != pilha[topo]) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+int main(void) {
+    char texto[MAX_TEXTO];
+
+    printf("Texto sem espacos: ");
+    scanf(" %199s", texto);
+
+    if (palindromo(texto)) {
+        printf("E palindromo.\n");
+    } else {
+        printf("Nao e palindromo.\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 13 - Converter decimal para binario e para outras bases
+===============================================================================
+
+#include <stdio.h>
+
+#define MAX_DIGITOS 100
+
+void decimal_para_base(int n, int base) {
+    const char simbolos[] = "0123456789ABCDEF";
+    int pilha[MAX_DIGITOS];
+    int topo = 0;
+
+    if (base < 2 || base > 16) {
+        printf("Base invalida.\n");
+        return;
+    }
+
+    if (n == 0) {
+        printf("0");
+        return;
+    }
+
+    while (n > 0) {
+        pilha[topo] = n % base;
+        topo++;
+        n /= base;
+    }
+
+    while (topo > 0) {
+        topo--;
+        printf("%c", simbolos[pilha[topo]]);
+    }
+}
+
+void decimal_para_binario(int n) {
+    decimal_para_base(n, 2);
+}
+
+int main(void) {
+    int numero;
+    int base;
+
+    printf("Numero decimal nao negativo: ");
+    scanf("%d", &numero);
+    printf("Base (2 a 16): ");
+    scanf("%d", &base);
+
+    if (numero < 0) {
+        printf("Numero invalido.\n");
+        return 1;
+    }
+
+    printf("Em binario: ");
+    decimal_para_binario(numero);
+    printf("\nNa base %d: ", base);
+    decimal_para_base(numero, base);
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 14 - Avaliar uma expressao pos-fixada
+===============================================================================
+
+#include <ctype.h>
+#include <stdio.h>
+
+#define CAPACIDADE 100
+
+int avalia_posfixa(const char *expr) {
+    int pilha[CAPACIDADE];
+    int topo = 0;
+
+    for (int i = 0; expr[i] != '\0'; i++) {
+        if (isdigit((unsigned char)expr[i])) {
+            pilha[topo] = expr[i] - '0';
+            topo++;
+        } else if (expr[i] == '+' || expr[i] == '-' ||
+                   expr[i] == '*' || expr[i] == '/') {
+            if (topo < 2) {
+                printf("Expressao invalida.\n");
+                return 0;
+            }
+
+            topo--;
+            int direita = pilha[topo];
+            topo--;
+            int esquerda = pilha[topo];
+            int resultado;
+
+            if (expr[i] == '+') {
+                resultado = esquerda + direita;
+            } else if (expr[i] == '-') {
+                resultado = esquerda - direita;
+            } else if (expr[i] == '*') {
+                resultado = esquerda * direita;
+            } else {
+                if (direita == 0) {
+                    printf("Divisao por zero.\n");
+                    return 0;
+                }
+                resultado = esquerda / direita;
+            }
+
+            pilha[topo] = resultado;
+            topo++;
+        }
+    }
+
+    if (topo != 1) {
+        printf("Expressao invalida.\n");
+        return 0;
+    }
+
+    return pilha[0];
+}
+
+int main(void) {
+    char expressao[200];
+
+    printf("Expressao pos-fixada: ");
+    scanf(" %199[^\n]", expressao);
+    printf("Resultado: %d\n", avalia_posfixa(expressao));
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 15 - Verificar uma sequencia de push e pop
+===============================================================================
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define CAPACIDADE 100
+
+int main(void) {
+    char entrada[201];
+    int pilha[CAPACIDADE];
+    int topo = 0;
+
+    printf("Sequencia: ");
+    scanf(" %200[^\n]", entrada);
+
+    char *comando = strtok(entrada, " ");
+
+    while (comando != NULL) {
+        if (comando[0] == 'E') {
+            if (topo == CAPACIDADE) {
+                printf("Pilha cheia.\n");
+            } else if (comando[1] == '\0') {
+                printf("Comando de empilhar sem valor.\n");
+            } else {
+                pilha[topo] = atoi(&comando[1]);
+                topo++;
+            }
+        } else if (strcmp(comando, "D") == 0) {
+            if (topo == 0) {
+                printf("Erro: tentativa de desempilhar uma pilha vazia.\n");
+            } else {
+                topo--;
+                printf("Removido: %d\n", pilha[topo]);
+            }
+        } else {
+            printf("Comando invalido: %s\n", comando);
+        }
+
+        comando = strtok(NULL, " ");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 16 - Implementar uma pilha do minimo
+===============================================================================
+
+#include <stdio.h>
+
+#define CAPACIDADE 100
+
+typedef struct {
+    int dados[CAPACIDADE];
+    int topo;
+} Pilha;
+
+typedef struct pilha_min {
+    Pilha valores;
+    Pilha minimos;
+} PilhaMin;
+
+void inicializar(PilhaMin *p) {
+    p->valores.topo = 0;
+    p->minimos.topo = 0;
+}
+
+int empilha(PilhaMin *p, int valor) {
+    if (p->valores.topo == CAPACIDADE) {
+        return 0;
+    }
+
+    p->valores.dados[p->valores.topo] = valor;
+    p->valores.topo++;
+
+    if (p->minimos.topo == 0 ||
+        valor <= p->minimos.dados[p->minimos.topo - 1]) {
+        p->minimos.dados[p->minimos.topo] = valor;
+        p->minimos.topo++;
+    }
+
+    return 1;
+}
+
+int desempilha(PilhaMin *p, int *valor) {
+    if (p->valores.topo == 0) {
+        return 0;
+    }
+
+    p->valores.topo--;
+    *valor = p->valores.dados[p->valores.topo];
+
+    if (*valor == p->minimos.dados[p->minimos.topo - 1]) {
+        p->minimos.topo--;
+    }
+
+    return 1;
+}
+
+int minimo(PilhaMin *p) {
+    if (p->minimos.topo == 0) {
+        printf("Pilha vazia.\n");
+        return 0;
+    }
+
+    return p->minimos.dados[p->minimos.topo - 1];
+}
+
+/* empilha, desempilha e minimo possuem complexidade O(1). */
+
+===============================================================================
+EXERCICIO 17 - Converter expressao infixa para pos-fixada
+===============================================================================
+
+#include <ctype.h>
+#include <stdio.h>
+
+#define MAX_TEXTO 200
+
+int precedencia(char operador) {
+    if (operador == '+' || operador == '-') {
+        return 1;
+    }
+    if (operador == '*' || operador == '/') {
+        return 2;
+    }
+    return 0;
+}
+
+void infixa_para_posfixa(const char *in, char *out) {
+    char operadores[MAX_TEXTO];
+    int topo = 0;
+    int saida = 0;
+
+    for (int i = 0; in[i] != '\0'; i++) {
+        char atual = in[i];
+
+        if (isspace((unsigned char)atual)) {
+            continue;
+        }
+
+        if (isdigit((unsigned char)atual)) {
+            out[saida] = atual;
+            saida++;
+            out[saida] = ' ';
+            saida++;
+        } else if (atual == '(') {
+            operadores[topo] = atual;
+            topo++;
+        } else if (atual == ')') {
+            while (topo > 0 && operadores[topo - 1] != '(') {
+                topo--;
+                out[saida] = operadores[topo];
+                saida++;
+                out[saida] = ' ';
+                saida++;
+            }
+
+            if (topo > 0 && operadores[topo - 1] == '(') {
+                topo--;
+            }
+        } else if (atual == '+' || atual == '-' ||
+                   atual == '*' || atual == '/') {
+            while (topo > 0 && operadores[topo - 1] != '(' &&
+                   precedencia(operadores[topo - 1]) >= precedencia(atual)) {
+                topo--;
+                out[saida] = operadores[topo];
+                saida++;
+                out[saida] = ' ';
+                saida++;
+            }
+
+            operadores[topo] = atual;
+            topo++;
+        }
+    }
+
+    while (topo > 0) {
+        topo--;
+        out[saida] = operadores[topo];
+        saida++;
+        out[saida] = ' ';
+        saida++;
+    }
+
+    out[saida] = '\0';
+}
+
+int avalia_posfixa(const char *expr) {
+    int valores[MAX_TEXTO];
+    int topo = 0;
+
+    for (int i = 0; expr[i] != '\0'; i++) {
+        if (isdigit((unsigned char)expr[i])) {
+            valores[topo] = expr[i] - '0';
+            topo++;
+        } else if (expr[i] == '+' || expr[i] == '-' ||
+                   expr[i] == '*' || expr[i] == '/') {
+            topo--;
+            int direita = valores[topo];
+            topo--;
+            int esquerda = valores[topo];
+
+            if (expr[i] == '+') {
+                valores[topo] = esquerda + direita;
+            } else if (expr[i] == '-') {
+                valores[topo] = esquerda - direita;
+            } else if (expr[i] == '*') {
+                valores[topo] = esquerda * direita;
+            } else {
+                valores[topo] = esquerda / direita;
+            }
+            topo++;
+        }
+    }
+
+    return valores[0];
+}
+
+int main(void) {
+    char infixa[MAX_TEXTO];
+    char posfixa[MAX_TEXTO];
+
+    printf("Expressao infixa com operandos de um digito: ");
+    scanf(" %199[^\n]", infixa);
+
+    infixa_para_posfixa(infixa, posfixa);
+    printf("Pos-fixada: %s\n", posfixa);
+    printf("Resultado: %d\n", avalia_posfixa(posfixa));
+
+    return 0;
+}

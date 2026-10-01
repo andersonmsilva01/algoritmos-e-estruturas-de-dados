@@ -1,0 +1,861 @@
+LISTA 5 - VETORES E MATRIZES
+EXERCICIOS RESOLVIDOS
+
+Cada bloco abaixo e um programa independente. Para testar uma solucao, copie
+somente o bloco do exercicio desejado para um arquivo com extensao .c.
+
+===============================================================================
+EXERCICIO 01 - Ler e exibir um vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[10];
+
+    for (int i = 0; i < 10; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    printf("Valores digitados: ");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 02 - Exibir os numeros pares de um vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[8];
+
+    for (int i = 0; i < 8; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    printf("Numeros pares: ");
+    for (int i = 0; i < 8; i++) {
+        if (vetor[i] % 2 == 0) {
+            printf("%d ", vetor[i]);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 03 - Calcular a media dos valores de um vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    float vetor[15];
+    float soma = 0.0f;
+
+    for (int i = 0; i < 15; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%f", &vetor[i]);
+        soma += vetor[i];
+    }
+
+    printf("Media: %.2f\n", soma / 15);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 04 - Encontrar o maior e o menor valor de um vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[12];
+
+    for (int i = 0; i < 12; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    int maior = vetor[0];
+    int menor = vetor[0];
+
+    for (int i = 1; i < 12; i++) {
+        if (vetor[i] > maior) {
+            maior = vetor[i];
+        }
+        if (vetor[i] < menor) {
+            menor = vetor[i];
+        }
+    }
+
+    printf("Maior: %d\n", maior);
+    printf("Menor: %d\n", menor);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 05 - Contar os valores positivos de um vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[10];
+    int positivos = 0;
+
+    for (int i = 0; i < 10; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+
+        if (vetor[i] > 0) {
+            positivos++;
+        }
+    }
+
+    printf("Quantidade de positivos: %d\n", positivos);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 06 - Exibir um vetor na ordem inversa
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[20];
+
+    for (int i = 0; i < 20; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    printf("Ordem inversa: ");
+    for (int i = 19; i >= 0; i--) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 07 - Somar os elementos de um vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[10];
+    int soma = 0;
+
+    for (int i = 0; i < 10; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+        soma += vetor[i];
+    }
+
+    printf("Soma: %d\n", soma);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 08 - Substituir os numeros negativos por zero
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[15];
+
+    for (int i = 0; i < 15; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+
+        if (vetor[i] < 0) {
+            vetor[i] = 0;
+        }
+    }
+
+    printf("Vetor alterado: ");
+    for (int i = 0; i < 15; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 09 - Somar os elementos correspondentes de dois vetores
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int a[10];
+    int b[10];
+    int soma[10];
+
+    printf("Primeiro vetor:\n");
+    for (int i = 0; i < 10; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    printf("Segundo vetor:\n");
+    for (int i = 0; i < 10; i++) {
+        scanf("%d", &b[i]);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        soma[i] = a[i] + b[i];
+    }
+
+    printf("Vetor soma: ");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", soma[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 10 - Contar as ocorrencias de um numero no vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[10];
+    int procurado;
+    int ocorrencias = 0;
+
+    for (int i = 0; i < 10; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    printf("Numero procurado: ");
+    scanf("%d", &procurado);
+
+    for (int i = 0; i < 10; i++) {
+        if (vetor[i] == procurado) {
+            ocorrencias++;
+        }
+    }
+
+    printf("O numero aparece %d vez(es).\n", ocorrencias);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 11 - Ordenar um vetor em ordem crescente
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[8];
+
+    for (int i = 0; i < 8; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    for (int fim = 7; fim > 0; fim--) {
+        for (int i = 0; i < fim; i++) {
+            if (vetor[i] > vetor[i + 1]) {
+                int temporario = vetor[i];
+                vetor[i] = vetor[i + 1];
+                vetor[i + 1] = temporario;
+            }
+        }
+    }
+
+    printf("Ordem crescente: ");
+    for (int i = 0; i < 8; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 12 - Ler e exibir um vetor de nomes
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    char nomes[10][51];
+
+    for (int i = 0; i < 10; i++) {
+        printf("Nome %d: ", i + 1);
+        scanf(" %50[^\n]", nomes[i]);
+    }
+
+    printf("Nomes digitados:\n");
+    for (int i = 0; i < 10; i++) {
+        printf("%s\n", nomes[i]);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 13 - Contar alunos acima da media da turma
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    float notas[5];
+    float soma = 0.0f;
+    int acima = 0;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Nota do aluno %d: ", i + 1);
+        scanf("%f", &notas[i]);
+        soma += notas[i];
+    }
+
+    float media = soma / 5;
+
+    for (int i = 0; i < 5; i++) {
+        if (notas[i] > media) {
+            acima++;
+        }
+    }
+
+    printf("Media da turma: %.2f\n", media);
+    printf("Alunos acima da media: %d\n", acima);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 14 - Contar os multiplos de 3 de um vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[30];
+    int multiplos = 0;
+
+    for (int i = 0; i < 30; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+
+        if (vetor[i] % 3 == 0) {
+            multiplos++;
+        }
+    }
+
+    printf("Multiplos de 3: %d\n", multiplos);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 15 - Verificar se existem valores repetidos no vetor
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int vetor[10];
+    int repetido = 0;
+
+    for (int i = 0; i < 10; i++) {
+        printf("Digite o valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    for (int i = 0; i < 9 && !repetido; i++) {
+        for (int j = i + 1; j < 10; j++) {
+            if (vetor[i] == vetor[j]) {
+                repetido = 1;
+                break;
+            }
+        }
+    }
+
+    if (repetido) {
+        printf("Existem valores repetidos.\n");
+    } else {
+        printf("Nao existem valores repetidos.\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 16 - Ler e exibir uma matriz 3 x 3
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[3][3];
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    printf("Matriz:\n");
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            printf("%d ", matriz[linha][coluna]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 17 - Somar todos os elementos de uma matriz 4 x 4
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[4][4];
+    int soma = 0;
+
+    for (int linha = 0; linha < 4; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+            soma += matriz[linha][coluna];
+        }
+    }
+
+    printf("Soma: %d\n", soma);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 18 - Exibir a diagonal principal de uma matriz 3 x 3
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[3][3];
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    printf("Diagonal principal: ");
+    for (int i = 0; i < 3; i++) {
+        printf("%d ", matriz[i][i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 19 - Contar os elementos pares de uma matriz 5 x 5
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[5][5];
+    int pares = 0;
+
+    for (int linha = 0; linha < 5; linha++) {
+        for (int coluna = 0; coluna < 5; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+
+            if (matriz[linha][coluna] % 2 == 0) {
+                pares++;
+            }
+        }
+    }
+
+    printf("Quantidade de pares: %d\n", pares);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 20 - Encontrar o maior elemento de uma matriz 3 x 3
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[3][3];
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    int maior = matriz[0][0];
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            if (matriz[linha][coluna] > maior) {
+                maior = matriz[linha][coluna];
+            }
+        }
+    }
+
+    printf("Maior elemento: %d\n", maior);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 21 - Somar duas matrizes 2 x 2
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int a[2][2];
+    int b[2][2];
+    int soma[2][2];
+
+    printf("Primeira matriz:\n");
+    for (int linha = 0; linha < 2; linha++) {
+        for (int coluna = 0; coluna < 2; coluna++) {
+            scanf("%d", &a[linha][coluna]);
+        }
+    }
+
+    printf("Segunda matriz:\n");
+    for (int linha = 0; linha < 2; linha++) {
+        for (int coluna = 0; coluna < 2; coluna++) {
+            scanf("%d", &b[linha][coluna]);
+        }
+    }
+
+    printf("Matriz soma:\n");
+    for (int linha = 0; linha < 2; linha++) {
+        for (int coluna = 0; coluna < 2; coluna++) {
+            soma[linha][coluna] = a[linha][coluna] + b[linha][coluna];
+            printf("%d ", soma[linha][coluna]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 22 - Calcular a soma de cada linha de uma matriz 4 x 4
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[4][4];
+
+    for (int linha = 0; linha < 4; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    for (int linha = 0; linha < 4; linha++) {
+        int soma = 0;
+
+        for (int coluna = 0; coluna < 4; coluna++) {
+            soma += matriz[linha][coluna];
+        }
+
+        printf("Soma da linha %d: %d\n", linha, soma);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 23 - Somar a diagonal secundaria de uma matriz 3 x 3
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[3][3];
+    int soma = 0;
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    for (int linha = 0; linha < 3; linha++) {
+        soma += matriz[linha][2 - linha];
+    }
+
+    printf("Soma da diagonal secundaria: %d\n", soma);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 24 - Contar os numeros negativos de uma matriz 3 x 4
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[3][4];
+    int negativos = 0;
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+
+            if (matriz[linha][coluna] < 0) {
+                negativos++;
+            }
+        }
+    }
+
+    printf("Quantidade de negativos: %d\n", negativos);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 25 - Substituir os numeros negativos por zero em uma matriz
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[5][5];
+
+    for (int linha = 0; linha < 5; linha++) {
+        for (int coluna = 0; coluna < 5; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+
+            if (matriz[linha][coluna] < 0) {
+                matriz[linha][coluna] = 0;
+            }
+        }
+    }
+
+    printf("Matriz alterada:\n");
+    for (int linha = 0; linha < 5; linha++) {
+        for (int coluna = 0; coluna < 5; coluna++) {
+            printf("%d ", matriz[linha][coluna]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 26 - Verificar se uma matriz 3 x 3 e identidade
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[3][3];
+    int identidade = 1;
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            if (linha == coluna && matriz[linha][coluna] != 1) {
+                identidade = 0;
+            }
+            if (linha != coluna && matriz[linha][coluna] != 0) {
+                identidade = 0;
+            }
+        }
+    }
+
+    if (identidade) {
+        printf("A matriz e identidade.\n");
+    } else {
+        printf("A matriz nao e identidade.\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 27 - Exibir a transposta de uma matriz 4 x 4
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[4][4];
+
+    for (int linha = 0; linha < 4; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    printf("Matriz transposta:\n");
+    for (int coluna = 0; coluna < 4; coluna++) {
+        for (int linha = 0; linha < 4; linha++) {
+            printf("%d ", matriz[linha][coluna]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 28 - Somar os elementos acima da diagonal principal
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[3][3];
+    int soma = 0;
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = linha + 1; coluna < 3; coluna++) {
+            soma += matriz[linha][coluna];
+        }
+    }
+
+    printf("Soma acima da diagonal principal: %d\n", soma);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 29 - Multiplicar uma matriz 2 x 3 por uma matriz 3 x 2
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int a[2][3];
+    int b[3][2];
+    int produto[2][2] = {0};
+
+    printf("Matriz 2 x 3:\n");
+    for (int linha = 0; linha < 2; linha++) {
+        for (int coluna = 0; coluna < 3; coluna++) {
+            scanf("%d", &a[linha][coluna]);
+        }
+    }
+
+    printf("Matriz 3 x 2:\n");
+    for (int linha = 0; linha < 3; linha++) {
+        for (int coluna = 0; coluna < 2; coluna++) {
+            scanf("%d", &b[linha][coluna]);
+        }
+    }
+
+    for (int linha = 0; linha < 2; linha++) {
+        for (int coluna = 0; coluna < 2; coluna++) {
+            for (int k = 0; k < 3; k++) {
+                produto[linha][coluna] += a[linha][k] * b[k][coluna];
+            }
+        }
+    }
+
+    printf("Produto:\n");
+    for (int linha = 0; linha < 2; linha++) {
+        for (int coluna = 0; coluna < 2; coluna++) {
+            printf("%d ", produto[linha][coluna]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 30 - Encontrar a posicao do maior elemento de uma matriz 5 x 5
+===============================================================================
+
+#include <stdio.h>
+
+int main(void) {
+    int matriz[5][5];
+
+    for (int linha = 0; linha < 5; linha++) {
+        for (int coluna = 0; coluna < 5; coluna++) {
+            printf("Elemento [%d][%d]: ", linha, coluna);
+            scanf("%d", &matriz[linha][coluna]);
+        }
+    }
+
+    int maior = matriz[0][0];
+    int linha_maior = 0;
+    int coluna_maior = 0;
+
+    for (int linha = 0; linha < 5; linha++) {
+        for (int coluna = 0; coluna < 5; coluna++) {
+            if (matriz[linha][coluna] > maior) {
+                maior = matriz[linha][coluna];
+                linha_maior = linha;
+                coluna_maior = coluna;
+            }
+        }
+    }
+
+    printf("Maior elemento: %d\n", maior);
+    printf("Posicao: linha %d, coluna %d\n", linha_maior, coluna_maior);
+
+    return 0;
+}

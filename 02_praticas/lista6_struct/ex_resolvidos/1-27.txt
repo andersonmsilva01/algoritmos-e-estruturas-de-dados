@@ -1,0 +1,1388 @@
+LISTA 6 - STRUCTS
+EXERCICIOS RESOLVIDOS (1 A 27)
+
+Cada bloco abaixo e um programa independente. Para testar uma solucao, copie
+somente o bloco do exercicio desejado para um arquivo com extensao .c.
+
+===============================================================================
+EXERCICIO 01 - Declarar uma struct simples
+===============================================================================
+
+#include <stdio.h>
+
+struct Ponto {
+    int x;
+    int y;
+};
+
+int main(void) {
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 02 - Definir e inicializar uma struct
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+int main(void) {
+    Data data = {1, 1, 2000};
+
+    printf("%02d/%02d/%04d\n", data.dia, data.mes, data.ano);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 03 - Ler um retangulo e calcular sua area
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    float largura;
+    float altura;
+} Retangulo;
+
+int main(void) {
+    Retangulo retangulo;
+
+    printf("Largura: ");
+    scanf("%f", &retangulo.largura);
+    printf("Altura: ");
+    scanf("%f", &retangulo.altura);
+
+    printf("Area: %.2f\n", retangulo.largura * retangulo.altura);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 04 - Ler um triangulo e calcular sua area
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    float base;
+    float altura;
+} Triangulo;
+
+int main(void) {
+    Triangulo triangulo;
+
+    printf("Base: ");
+    scanf("%f", &triangulo.base);
+    printf("Altura: ");
+    scanf("%f", &triangulo.altura);
+
+    printf("Area: %.2f\n", triangulo.base * triangulo.altura / 2.0f);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 05 - Calcular o valor total de um produto
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int id;
+    int quantidade;
+    float preco;
+} Produto;
+
+int main(void) {
+    Produto produto;
+
+    printf("ID: ");
+    scanf("%d", &produto.id);
+    printf("Quantidade: ");
+    scanf("%d", &produto.quantidade);
+    printf("Preco unitario: ");
+    scanf("%f", &produto.preco);
+
+    printf("Valor total: R$ %.2f\n",
+           produto.quantidade * produto.preco);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 06 - Calcular a media de um vetor de alunos
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int matricula;
+    float nota;
+} Aluno;
+
+int main(void) {
+    Aluno alunos[5];
+    float soma = 0.0f;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Matricula do aluno %d: ", i + 1);
+        scanf("%d", &alunos[i].matricula);
+        printf("Nota: ");
+        scanf("%f", &alunos[i].nota);
+        soma += alunos[i].nota;
+    }
+
+    printf("Media das notas: %.2f\n", soma / 5);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 07 - Encontrar o produto mais caro
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int id;
+    int quantidade;
+    float preco;
+} Produto;
+
+int main(void) {
+    Produto produtos[3];
+
+    for (int i = 0; i < 3; i++) {
+        printf("Produto %d - ID: ", i + 1);
+        scanf("%d", &produtos[i].id);
+        printf("Quantidade: ");
+        scanf("%d", &produtos[i].quantidade);
+        printf("Preco: ");
+        scanf("%f", &produtos[i].preco);
+    }
+
+    int indice_mais_caro = 0;
+
+    for (int i = 1; i < 3; i++) {
+        if (produtos[i].preco > produtos[indice_mais_caro].preco) {
+            indice_mais_caro = i;
+        }
+    }
+
+    printf("ID do produto mais caro: %d\n",
+           produtos[indice_mais_caro].id);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 08 - Encontrar a cor com o menor codigo
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int codigo;
+    char nome[11];
+} Cor;
+
+int main(void) {
+    Cor cores[3];
+
+    for (int i = 0; i < 3; i++) {
+        printf("Codigo da cor %d: ", i + 1);
+        scanf("%d", &cores[i].codigo);
+        printf("Nome: ");
+        scanf(" %10[^\n]", cores[i].nome);
+    }
+
+    int indice_menor = 0;
+
+    for (int i = 1; i < 3; i++) {
+        if (cores[i].codigo < cores[indice_menor].codigo) {
+            indice_menor = i;
+        }
+    }
+
+    printf("Cor com menor codigo: %s (%d)\n",
+           cores[indice_menor].nome, cores[indice_menor].codigo);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 09 - Verificar se uma data e valida
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+int ano_bissexto(int ano) {
+    return (ano % 400 == 0) || (ano % 4 == 0 && ano % 100 != 0);
+}
+
+int data_valida(Data data) {
+    int dias_por_mes[12] = {31, 28, 31, 30, 31, 30,
+                            31, 31, 30, 31, 30, 31};
+
+    if (data.ano < 1 || data.mes < 1 || data.mes > 12) {
+        return 0;
+    }
+
+    if (data.mes == 2 && ano_bissexto(data.ano)) {
+        dias_por_mes[1] = 29;
+    }
+
+    return data.dia >= 1 && data.dia <= dias_por_mes[data.mes - 1];
+}
+
+int main(void) {
+    Data data;
+
+    printf("Digite dia, mes e ano: ");
+    scanf("%d %d %d", &data.dia, &data.mes, &data.ano);
+
+    if (data_valida(data)) {
+        printf("Data valida.\n");
+    } else {
+        printf("Data invalida.\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 10 - Calcular a distancia entre dois pontos
+===============================================================================
+
+#include <math.h>
+#include <stdio.h>
+
+typedef struct {
+    int x;
+    int y;
+} Ponto;
+
+int main(void) {
+    Ponto a;
+    Ponto b;
+
+    printf("Coordenadas x e y do primeiro ponto: ");
+    scanf("%d %d", &a.x, &a.y);
+    printf("Coordenadas x e y do segundo ponto: ");
+    scanf("%d %d", &b.x, &b.y);
+
+    int diferenca_x = b.x - a.x;
+    int diferenca_y = b.y - a.y;
+    double distancia = sqrt(diferenca_x * diferenca_x +
+                            diferenca_y * diferenca_y);
+
+    printf("Distancia: %.2f\n", distancia);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 11 - Ordenar alunos pela nota
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int matricula;
+    float nota;
+} Aluno;
+
+int main(void) {
+    Aluno alunos[3];
+
+    for (int i = 0; i < 3; i++) {
+        printf("Matricula do aluno %d: ", i + 1);
+        scanf("%d", &alunos[i].matricula);
+        printf("Nota: ");
+        scanf("%f", &alunos[i].nota);
+    }
+
+    for (int fim = 2; fim > 0; fim--) {
+        for (int i = 0; i < fim; i++) {
+            if (alunos[i].nota > alunos[i + 1].nota) {
+                Aluno temporario = alunos[i];
+                alunos[i] = alunos[i + 1];
+                alunos[i + 1] = temporario;
+            }
+        }
+    }
+
+    printf("Alunos em ordem crescente de nota:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("Matricula: %d | Nota: %.2f\n",
+               alunos[i].matricula, alunos[i].nota);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 12 - Buscar um produto pelo ID
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int id;
+    int quantidade;
+    float preco;
+} Produto;
+
+int main(void) {
+    Produto produtos[5];
+    int id_procurado;
+    int encontrado = -1;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Produto %d - ID: ", i + 1);
+        scanf("%d", &produtos[i].id);
+        printf("Quantidade: ");
+        scanf("%d", &produtos[i].quantidade);
+        printf("Preco: ");
+        scanf("%f", &produtos[i].preco);
+    }
+
+    printf("ID procurado: ");
+    scanf("%d", &id_procurado);
+
+    for (int i = 0; i < 5; i++) {
+        if (produtos[i].id == id_procurado) {
+            encontrado = i;
+            break;
+        }
+    }
+
+    if (encontrado >= 0) {
+        printf("ID: %d | Quantidade: %d | Preco: R$ %.2f\n",
+               produtos[encontrado].id,
+               produtos[encontrado].quantidade,
+               produtos[encontrado].preco);
+    } else {
+        printf("Produto nao encontrado.\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 13 - Somar as areas de retangulos
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    float largura;
+    float altura;
+} Retangulo;
+
+int main(void) {
+    Retangulo retangulos[5];
+    float soma_areas = 0.0f;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Retangulo %d - largura: ", i + 1);
+        scanf("%f", &retangulos[i].largura);
+        printf("Altura: ");
+        scanf("%f", &retangulos[i].altura);
+
+        soma_areas += retangulos[i].largura * retangulos[i].altura;
+    }
+
+    printf("Soma das areas: %.2f\n", soma_areas);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 14 - Filtrar produtos pelo preco
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int id;
+    int quantidade;
+    float preco;
+} Produto;
+
+int main(void) {
+    Produto produtos[5];
+
+    for (int i = 0; i < 5; i++) {
+        printf("Produto %d - ID: ", i + 1);
+        scanf("%d", &produtos[i].id);
+        printf("Quantidade: ");
+        scanf("%d", &produtos[i].quantidade);
+        printf("Preco: ");
+        scanf("%f", &produtos[i].preco);
+    }
+
+    printf("Produtos com preco maior que R$ 50,00:\n");
+    for (int i = 0; i < 5; i++) {
+        if (produtos[i].preco > 50.0f) {
+            printf("ID: %d | Quantidade: %d | Preco: R$ %.2f\n",
+                   produtos[i].id,
+                   produtos[i].quantidade,
+                   produtos[i].preco);
+        }
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 15 - Atualizar a nota de um aluno
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int matricula;
+    float nota;
+} Aluno;
+
+int main(void) {
+    Aluno alunos[5];
+    int matricula_procurada;
+    int encontrado = -1;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Matricula do aluno %d: ", i + 1);
+        scanf("%d", &alunos[i].matricula);
+        printf("Nota: ");
+        scanf("%f", &alunos[i].nota);
+    }
+
+    printf("Matricula do aluno que sera atualizado: ");
+    scanf("%d", &matricula_procurada);
+
+    for (int i = 0; i < 5; i++) {
+        if (alunos[i].matricula == matricula_procurada) {
+            encontrado = i;
+            break;
+        }
+    }
+
+    if (encontrado >= 0) {
+        printf("Nova nota: ");
+        scanf("%f", &alunos[encontrado].nota);
+        printf("Nota atualizada para %.2f.\n", alunos[encontrado].nota);
+    } else {
+        printf("Aluno nao encontrado.\n");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 16 - Cadastrar pessoas
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    char nome[51];
+    int idade;
+} Pessoa;
+
+int main(void) {
+    Pessoa pessoas[3];
+
+    for (int i = 0; i < 3; i++) {
+        printf("Nome da pessoa %d: ", i + 1);
+        scanf(" %50[^\n]", pessoas[i].nome);
+        printf("Idade: ");
+        scanf("%d", &pessoas[i].idade);
+    }
+
+    printf("Pessoas cadastradas:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("Nome: %s | Idade: %d\n", pessoas[i].nome, pessoas[i].idade);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 17 - Usar uma struct dentro de outra
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    char rua[51];
+    int numero;
+} Endereco;
+
+typedef struct {
+    char nome[51];
+    int idade;
+    Endereco endereco;
+} Pessoa;
+
+int main(void) {
+    Pessoa pessoas[2];
+
+    for (int i = 0; i < 2; i++) {
+        printf("Nome da pessoa %d: ", i + 1);
+        scanf(" %50[^\n]", pessoas[i].nome);
+        printf("Idade: ");
+        scanf("%d", &pessoas[i].idade);
+        printf("Rua: ");
+        scanf(" %50[^\n]", pessoas[i].endereco.rua);
+        printf("Numero: ");
+        scanf("%d", &pessoas[i].endereco.numero);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        printf("%s, %d anos - %s, %d\n",
+               pessoas[i].nome,
+               pessoas[i].idade,
+               pessoas[i].endereco.rua,
+               pessoas[i].endereco.numero);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 18 - Cadastrar produtos com nome e preco
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    char nome[51];
+    float preco;
+} Produto;
+
+int main(void) {
+    Produto produtos[5];
+
+    for (int i = 0; i < 5; i++) {
+        printf("Nome do produto %d: ", i + 1);
+        scanf(" %50[^\n]", produtos[i].nome);
+        printf("Preco: ");
+        scanf("%f", &produtos[i].preco);
+    }
+
+    printf("Produtos cadastrados:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("%s - R$ %.2f\n", produtos[i].nome, produtos[i].preco);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 19 - Criar tipos para horario, data e compromisso
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int hora;
+    int minuto;
+    int segundo;
+} Horario;
+
+typedef struct {
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+typedef struct {
+    Data data;
+    Horario horario;
+    char descricao[101];
+} Compromisso;
+
+int main(void) {
+    Compromisso compromisso;
+
+    printf("Data (dia mes ano): ");
+    scanf("%d %d %d",
+          &compromisso.data.dia,
+          &compromisso.data.mes,
+          &compromisso.data.ano);
+    printf("Horario (hora minuto segundo): ");
+    scanf("%d %d %d",
+          &compromisso.horario.hora,
+          &compromisso.horario.minuto,
+          &compromisso.horario.segundo);
+    printf("Descricao: ");
+    scanf(" %100[^\n]", compromisso.descricao);
+
+    printf("%02d/%02d/%04d as %02d:%02d:%02d - %s\n",
+           compromisso.data.dia,
+           compromisso.data.mes,
+           compromisso.data.ano,
+           compromisso.horario.hora,
+           compromisso.horario.minuto,
+           compromisso.horario.segundo,
+           compromisso.descricao);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 20 - Armazenar os dados de uma pessoa
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    char nome[51];
+    int idade;
+    char endereco[101];
+} Pessoa;
+
+int main(void) {
+    Pessoa pessoa;
+
+    printf("Nome: ");
+    scanf(" %50[^\n]", pessoa.nome);
+    printf("Idade: ");
+    scanf("%d", &pessoa.idade);
+    printf("Endereco: ");
+    scanf(" %100[^\n]", pessoa.endereco);
+
+    printf("Nome: %s\n", pessoa.nome);
+    printf("Idade: %d\n", pessoa.idade);
+    printf("Endereco: %s\n", pessoa.endereco);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 21 - Cadastrar alunos em um vetor de structs
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    char nome[51];
+    int matricula;
+    char curso[51];
+} Aluno;
+
+int main(void) {
+    Aluno alunos[5];
+
+    for (int i = 0; i < 5; i++) {
+        printf("Nome do aluno %d: ", i + 1);
+        scanf(" %50[^\n]", alunos[i].nome);
+        printf("Matricula: ");
+        scanf("%d", &alunos[i].matricula);
+        printf("Curso: ");
+        scanf(" %50[^\n]", alunos[i].curso);
+    }
+
+    printf("Alunos cadastrados:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Nome: %s | Matricula: %d | Curso: %s\n",
+               alunos[i].nome, alunos[i].matricula, alunos[i].curso);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 22 - Analisar as notas de alunos
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int matricula;
+    char nome[51];
+    float notas[3];
+} Aluno;
+
+float calcular_media(Aluno aluno) {
+    return (aluno.notas[0] + aluno.notas[1] + aluno.notas[2]) / 3.0f;
+}
+
+int main(void) {
+    Aluno alunos[5];
+
+    for (int i = 0; i < 5; i++) {
+        printf("Matricula do aluno %d: ", i + 1);
+        scanf("%d", &alunos[i].matricula);
+        printf("Nome: ");
+        scanf(" %50[^\n]", alunos[i].nome);
+
+        for (int prova = 0; prova < 3; prova++) {
+            printf("Nota da prova %d: ", prova + 1);
+            scanf("%f", &alunos[i].notas[prova]);
+        }
+    }
+
+    int maior_primeira_prova = 0;
+    int maior_media = 0;
+    int menor_media = 0;
+
+    for (int i = 1; i < 5; i++) {
+        if (alunos[i].notas[0] > alunos[maior_primeira_prova].notas[0]) {
+            maior_primeira_prova = i;
+        }
+        if (calcular_media(alunos[i]) > calcular_media(alunos[maior_media])) {
+            maior_media = i;
+        }
+        if (calcular_media(alunos[i]) < calcular_media(alunos[menor_media])) {
+            menor_media = i;
+        }
+    }
+
+    printf("Maior nota na primeira prova: %s (%.2f)\n",
+           alunos[maior_primeira_prova].nome,
+           alunos[maior_primeira_prova].notas[0]);
+    printf("Maior media geral: %s (%.2f)\n",
+           alunos[maior_media].nome,
+           calcular_media(alunos[maior_media]));
+    printf("Menor media geral: %s (%.2f)\n",
+           alunos[menor_media].nome,
+           calcular_media(alunos[menor_media]));
+
+    for (int i = 0; i < 5; i++) {
+        float media = calcular_media(alunos[i]);
+        printf("%s - media %.2f - %s\n",
+               alunos[i].nome,
+               media,
+               media >= 6.0f ? "Aprovado" : "Reprovado");
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 23 - Calcular medias ponderadas de uma turma
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int matricula;
+    char nome[51];
+    int codigo_disciplina;
+    float nota1;
+    float nota2;
+} Aluno;
+
+int main(void) {
+    Aluno alunos[10];
+    int quantidade;
+
+    do {
+        printf("Quantidade de alunos (1 a 10): ");
+        scanf("%d", &quantidade);
+    } while (quantidade < 1 || quantidade > 10);
+
+    for (int i = 0; i < quantidade; i++) {
+        printf("Matricula do aluno %d: ", i + 1);
+        scanf("%d", &alunos[i].matricula);
+        printf("Nome: ");
+        scanf(" %50[^\n]", alunos[i].nome);
+        printf("Codigo da disciplina: ");
+        scanf("%d", &alunos[i].codigo_disciplina);
+        printf("Nota 1: ");
+        scanf("%f", &alunos[i].nota1);
+        printf("Nota 2: ");
+        scanf("%f", &alunos[i].nota2);
+    }
+
+    printf("Listagem final:\n");
+    for (int i = 0; i < quantidade; i++) {
+        float media = (alunos[i].nota1 + 2.0f * alunos[i].nota2) / 3.0f;
+        printf("%d | %s | Disciplina %d | Media %.2f\n",
+               alunos[i].matricula,
+               alunos[i].nome,
+               alunos[i].codigo_disciplina,
+               media);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 24 - Cadastrar um funcionario
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+typedef struct {
+    char nome[51];
+    int idade;
+    char sexo;
+    char cpf[15];
+    Data nascimento;
+    int codigo_setor;
+    char cargo[31];
+    float salario;
+} Funcionario;
+
+int main(void) {
+    Funcionario funcionario;
+
+    printf("Nome: ");
+    scanf(" %50[^\n]", funcionario.nome);
+    printf("Idade: ");
+    scanf("%d", &funcionario.idade);
+    printf("Sexo (M/F): ");
+    scanf(" %c", &funcionario.sexo);
+    printf("CPF: ");
+    scanf(" %14s", funcionario.cpf);
+    printf("Nascimento (dia mes ano): ");
+    scanf("%d %d %d",
+          &funcionario.nascimento.dia,
+          &funcionario.nascimento.mes,
+          &funcionario.nascimento.ano);
+
+    do {
+        printf("Codigo do setor (0 a 99): ");
+        scanf("%d", &funcionario.codigo_setor);
+    } while (funcionario.codigo_setor < 0 ||
+             funcionario.codigo_setor > 99);
+
+    printf("Cargo: ");
+    scanf(" %30[^\n]", funcionario.cargo);
+    printf("Salario: ");
+    scanf("%f", &funcionario.salario);
+
+    printf("\nFuncionario cadastrado:\n");
+    printf("Nome: %s\n", funcionario.nome);
+    printf("Idade: %d\n", funcionario.idade);
+    printf("Sexo: %c\n", funcionario.sexo);
+    printf("CPF: %s\n", funcionario.cpf);
+    printf("Nascimento: %02d/%02d/%04d\n",
+           funcionario.nascimento.dia,
+           funcionario.nascimento.mes,
+           funcionario.nascimento.ano);
+    printf("Setor: %d\n", funcionario.codigo_setor);
+    printf("Cargo: %s\n", funcionario.cargo);
+    printf("Salario: R$ %.2f\n", funcionario.salario);
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 25 - Separar alunos aprovados e reprovados
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    char nome[51];
+    int matricula;
+    float media_final;
+} Aluno;
+
+void imprimir_aluno(Aluno aluno) {
+    printf("%s | Matricula: %d | Media: %.2f\n",
+           aluno.nome, aluno.matricula, aluno.media_final);
+}
+
+int main(void) {
+    Aluno alunos[10];
+    Aluno aprovados[10];
+    Aluno reprovados[10];
+    int quantidade_aprovados = 0;
+    int quantidade_reprovados = 0;
+
+    for (int i = 0; i < 10; i++) {
+        printf("Nome do aluno %d: ", i + 1);
+        scanf(" %50[^\n]", alunos[i].nome);
+        printf("Matricula: ");
+        scanf("%d", &alunos[i].matricula);
+        printf("Media final: ");
+        scanf("%f", &alunos[i].media_final);
+
+        if (alunos[i].media_final >= 5.0f) {
+            aprovados[quantidade_aprovados] = alunos[i];
+            quantidade_aprovados++;
+        } else {
+            reprovados[quantidade_reprovados] = alunos[i];
+            quantidade_reprovados++;
+        }
+    }
+
+    printf("\nAprovados:\n");
+    for (int i = 0; i < quantidade_aprovados; i++) {
+        imprimir_aluno(aprovados[i]);
+    }
+
+    printf("\nReprovados:\n");
+    for (int i = 0; i < quantidade_reprovados; i++) {
+        imprimir_aluno(reprovados[i]);
+    }
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 26 - Realizar consultas e operacoes com cadastros
+===============================================================================
+
+#include <stdio.h>
+
+typedef struct {
+    char marca[16];
+    int ano;
+    float preco;
+} Carro;
+
+typedef struct {
+    int codigo;
+    char nome[16];
+    float preco;
+    int quantidade;
+} Produto;
+
+typedef struct {
+    char nome[51];
+    int idade;
+    char sexo;
+    float salario;
+    int identidade;
+} Cadastro;
+
+void consultar_carros(void) {
+    Carro carros[5];
+    float limite;
+
+    printf("CADASTRO DE CARROS\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Marca do carro %d: ", i + 1);
+        scanf(" %15[^\n]", carros[i].marca);
+        printf("Ano: ");
+        scanf("%d", &carros[i].ano);
+        printf("Preco: ");
+        scanf("%f", &carros[i].preco);
+    }
+
+    do {
+        printf("Limite de preco (0 encerra): ");
+        scanf("%f", &limite);
+
+        if (limite != 0.0f) {
+            for (int i = 0; i < 5; i++) {
+                if (carros[i].preco < limite) {
+                    printf("%s | %d | R$ %.2f\n",
+                           carros[i].marca, carros[i].ano, carros[i].preco);
+                }
+            }
+        }
+    } while (limite != 0.0f);
+}
+
+void controlar_estoque(void) {
+    Produto produtos[5];
+    int codigo;
+    int quantidade_pedida;
+
+    printf("\nCADASTRO DE PRODUTOS\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Codigo do produto %d: ", i + 1);
+        scanf("%d", &produtos[i].codigo);
+        printf("Nome: ");
+        scanf(" %15[^\n]", produtos[i].nome);
+        printf("Preco: ");
+        scanf("%f", &produtos[i].preco);
+        printf("Quantidade em estoque: ");
+        scanf("%d", &produtos[i].quantidade);
+    }
+
+    do {
+        printf("Codigo do pedido (0 encerra): ");
+        scanf("%d", &codigo);
+
+        if (codigo != 0) {
+            int indice = -1;
+
+            for (int i = 0; i < 5; i++) {
+                if (produtos[i].codigo == codigo) {
+                    indice = i;
+                    break;
+                }
+            }
+
+            if (indice < 0) {
+                printf("Codigo inexistente.\n");
+            } else {
+                printf("Quantidade pedida: ");
+                scanf("%d", &quantidade_pedida);
+
+                if (quantidade_pedida <= 0) {
+                    printf("Quantidade invalida.\n");
+                } else if (quantidade_pedida > produtos[indice].quantidade) {
+                    printf("Estoque insuficiente.\n");
+                } else {
+                    produtos[indice].quantidade -= quantidade_pedida;
+                    printf("Pedido realizado. Restam %d unidade(s).\n",
+                           produtos[indice].quantidade);
+                }
+            }
+        }
+    } while (codigo != 0);
+}
+
+void analisar_cadastros(void) {
+    Cadastro pessoas[5];
+    int identidade_procurada;
+    int indice_mais_velha = 0;
+
+    printf("\nCADASTRO DE PESSOAS\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Nome da pessoa %d: ", i + 1);
+        scanf(" %50[^\n]", pessoas[i].nome);
+        printf("Idade: ");
+        scanf("%d", &pessoas[i].idade);
+        printf("Sexo (M/F): ");
+        scanf(" %c", &pessoas[i].sexo);
+        printf("Salario: ");
+        scanf("%f", &pessoas[i].salario);
+        printf("Identidade: ");
+        scanf("%d", &pessoas[i].identidade);
+
+        if (pessoas[i].idade > pessoas[indice_mais_velha].idade) {
+            indice_mais_velha = i;
+        }
+    }
+
+    printf("Pessoa mais velha: %s (%d anos)\n",
+           pessoas[indice_mais_velha].nome,
+           pessoas[indice_mais_velha].idade);
+
+    printf("Pessoas do sexo masculino:\n");
+    for (int i = 0; i < 5; i++) {
+        if (pessoas[i].sexo == 'M' || pessoas[i].sexo == 'm') {
+            printf("%s\n", pessoas[i].nome);
+        }
+    }
+
+    printf("Pessoas com salario maior que R$ 1.000,00:\n");
+    for (int i = 0; i < 5; i++) {
+        if (pessoas[i].salario > 1000.0f) {
+            printf("%s - R$ %.2f\n", pessoas[i].nome, pessoas[i].salario);
+        }
+    }
+
+    printf("Identidade procurada: ");
+    scanf("%d", &identidade_procurada);
+
+    int encontrou = 0;
+    for (int i = 0; i < 5; i++) {
+        if (pessoas[i].identidade == identidade_procurada) {
+            printf("Pessoa encontrada: %s\n", pessoas[i].nome);
+            encontrou = 1;
+            break;
+        }
+    }
+
+    if (!encontrou) {
+        printf("Identidade nao encontrada.\n");
+    }
+}
+
+int main(void) {
+    consultar_carros();
+    controlar_estoque();
+    analisar_cadastros();
+
+    return 0;
+}
+
+===============================================================================
+EXERCICIO 27 - Simular uma agenda de telefones
+===============================================================================
+
+#include <stdio.h>
+#include <string.h>
+
+#define CAPACIDADE 100
+
+typedef struct {
+    char rua[51];
+    int numero;
+    char cidade[31];
+    char estado[3];
+    char cep[10];
+} Endereco;
+
+typedef struct {
+    int ddd;
+    char numero[16];
+} Telefone;
+
+typedef struct {
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+typedef struct {
+    char nome[51];
+    char email[51];
+    Endereco endereco;
+    Telefone telefone;
+    Data aniversario;
+    char observacoes[101];
+} Contato;
+
+typedef struct {
+    Contato contatos[CAPACIDADE];
+    int quantidade;
+} Agenda;
+
+void ler_contato(Contato *contato) {
+    printf("Nome completo: ");
+    scanf(" %50[^\n]", contato->nome);
+    printf("E-mail: ");
+    scanf(" %50[^\n]", contato->email);
+    printf("Rua: ");
+    scanf(" %50[^\n]", contato->endereco.rua);
+    printf("Numero do endereco: ");
+    scanf("%d", &contato->endereco.numero);
+    printf("Cidade: ");
+    scanf(" %30[^\n]", contato->endereco.cidade);
+    printf("Estado: ");
+    scanf(" %2s", contato->endereco.estado);
+    printf("CEP: ");
+    scanf(" %9s", contato->endereco.cep);
+    printf("DDD: ");
+    scanf("%d", &contato->telefone.ddd);
+    printf("Telefone: ");
+    scanf(" %15s", contato->telefone.numero);
+    printf("Aniversario (dia mes ano): ");
+    scanf("%d %d %d",
+          &contato->aniversario.dia,
+          &contato->aniversario.mes,
+          &contato->aniversario.ano);
+    printf("Observacoes: ");
+    scanf(" %100[^\n]", contato->observacoes);
+}
+
+void imprimir_resumido(const Contato *contato) {
+    printf("%s | (%d) %s | %02d/%02d\n",
+           contato->nome,
+           contato->telefone.ddd,
+           contato->telefone.numero,
+           contato->aniversario.dia,
+           contato->aniversario.mes);
+}
+
+void imprimir_completo(const Contato *contato) {
+    printf("Nome: %s\n", contato->nome);
+    printf("E-mail: %s\n", contato->email);
+    printf("Endereco: %s, %d - %s/%s - CEP %s\n",
+           contato->endereco.rua,
+           contato->endereco.numero,
+           contato->endereco.cidade,
+           contato->endereco.estado,
+           contato->endereco.cep);
+    printf("Telefone: (%d) %s\n",
+           contato->telefone.ddd,
+           contato->telefone.numero);
+    printf("Aniversario: %02d/%02d/%04d\n",
+           contato->aniversario.dia,
+           contato->aniversario.mes,
+           contato->aniversario.ano);
+    printf("Observacoes: %s\n\n", contato->observacoes);
+}
+
+void inserir_ordenado(Agenda *agenda) {
+    if (agenda->quantidade == CAPACIDADE) {
+        printf("Agenda cheia.\n");
+        return;
+    }
+
+    Contato novo;
+    ler_contato(&novo);
+
+    int posicao = agenda->quantidade;
+    while (posicao > 0 &&
+           strcmp(novo.nome, agenda->contatos[posicao - 1].nome) < 0) {
+        agenda->contatos[posicao] = agenda->contatos[posicao - 1];
+        posicao--;
+    }
+
+    agenda->contatos[posicao] = novo;
+    agenda->quantidade++;
+}
+
+void buscar_primeiro_nome(const Agenda *agenda) {
+    char procurado[51];
+    char primeiro_nome[51];
+    int encontrou = 0;
+
+    printf("Primeiro nome: ");
+    scanf(" %50s", procurado);
+
+    for (int i = 0; i < agenda->quantidade; i++) {
+        sscanf(agenda->contatos[i].nome, "%50s", primeiro_nome);
+
+        if (strcmp(primeiro_nome, procurado) == 0) {
+            imprimir_completo(&agenda->contatos[i]);
+            encontrou = 1;
+        }
+    }
+
+    if (!encontrou) {
+        printf("Nenhum contato encontrado.\n");
+    }
+}
+
+void buscar_mes(const Agenda *agenda) {
+    int mes;
+    int encontrou = 0;
+
+    printf("Mes do aniversario: ");
+    scanf("%d", &mes);
+
+    for (int i = 0; i < agenda->quantidade; i++) {
+        if (agenda->contatos[i].aniversario.mes == mes) {
+            imprimir_resumido(&agenda->contatos[i]);
+            encontrou = 1;
+        }
+    }
+
+    if (!encontrou) {
+        printf("Nenhum contato encontrado.\n");
+    }
+}
+
+void buscar_dia_mes(const Agenda *agenda) {
+    int dia;
+    int mes;
+    int encontrou = 0;
+
+    printf("Dia e mes do aniversario: ");
+    scanf("%d %d", &dia, &mes);
+
+    for (int i = 0; i < agenda->quantidade; i++) {
+        if (agenda->contatos[i].aniversario.dia == dia &&
+            agenda->contatos[i].aniversario.mes == mes) {
+            imprimir_resumido(&agenda->contatos[i]);
+            encontrou = 1;
+        }
+    }
+
+    if (!encontrou) {
+        printf("Nenhum contato encontrado.\n");
+    }
+}
+
+void remover_contato(Agenda *agenda) {
+    char nome[51];
+    int posicao = -1;
+
+    printf("Nome completo do contato: ");
+    scanf(" %50[^\n]", nome);
+
+    for (int i = 0; i < agenda->quantidade; i++) {
+        if (strcmp(agenda->contatos[i].nome, nome) == 0) {
+            posicao = i;
+            break;
+        }
+    }
+
+    if (posicao < 0) {
+        printf("Contato nao encontrado.\n");
+        return;
+    }
+
+    for (int i = posicao; i < agenda->quantidade - 1; i++) {
+        agenda->contatos[i] = agenda->contatos[i + 1];
+    }
+
+    agenda->quantidade--;
+    printf("Contato removido.\n");
+}
+
+void imprimir_agenda(const Agenda *agenda, int completa) {
+    if (agenda->quantidade == 0) {
+        printf("Agenda vazia.\n");
+        return;
+    }
+
+    for (int i = 0; i < agenda->quantidade; i++) {
+        if (completa) {
+            imprimir_completo(&agenda->contatos[i]);
+        } else {
+            imprimir_resumido(&agenda->contatos[i]);
+        }
+    }
+}
+
+int main(void) {
+    Agenda agenda = {{0}, 0};
+    int opcao;
+
+    do {
+        printf("\n1 - Inserir contato\n");
+        printf("2 - Buscar por primeiro nome\n");
+        printf("3 - Buscar por mes de aniversario\n");
+        printf("4 - Buscar por dia e mes de aniversario\n");
+        printf("5 - Remover contato\n");
+        printf("6 - Imprimir agenda resumida\n");
+        printf("7 - Imprimir agenda completa\n");
+        printf("0 - Sair\n");
+        printf("Opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                inserir_ordenado(&agenda);
+                break;
+            case 2:
+                buscar_primeiro_nome(&agenda);
+                break;
+            case 3:
+                buscar_mes(&agenda);
+                break;
+            case 4:
+                buscar_dia_mes(&agenda);
+                break;
+            case 5:
+                remover_contato(&agenda);
+                break;
+            case 6:
+                imprimir_agenda(&agenda, 0);
+                break;
+            case 7:
+                imprimir_agenda(&agenda, 1);
+                break;
+            case 0:
+                printf("Agenda encerrada.\n");
+                break;
+            default:
+                printf("Opcao invalida.\n");
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
