@@ -9,6 +9,9 @@ Cada valor deve ser apresentado apenas uma vez no resultado, mesmo que esteja
 repetido no vetor.
 */
 
+
+/* CODIGO ANTERIOR
+
 #include <stdio.h>
 
 int main(){
@@ -28,6 +31,48 @@ printf("distintos: %d", dist);
 
     return 0;
 }
+*/
+
+#include <stdio.h>
+
+#define TAMANHO 12
+
+int main(void) {
+    int v[TAMANHO];
+
+    for (int i = 0; i < TAMANHO; i++) {
+        printf("v[%d]: ", i);
+        scanf("%d", &v[i]);
+    }
+
+    for (int i = 0; i < TAMANHO; i++) {
+        int contado_anteriormente = 0;
+
+        for (int j = 0; j < i; j++) {
+            if (v[j] == v[i]) {
+                contado_anteriormente = 1;
+                break;
+            }
+        }
+
+        if (contado_anteriormente) {
+            continue;
+        }
+
+        int frequencia = 0;
+
+        for (int j = 0; j < TAMANHO; j++) {
+            if (v[j] == v[i]) {
+                frequencia++;
+            }
+        }
+
+        printf("%d aparece %d vez(es).\n", v[i], frequencia);
+    }
+
+    return 0;
+}
+
 
 /*
 CORREÇÃO: INCORRETO.
